@@ -4,57 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/gif" href="./assets/icons/logo_img.png">
-    <title>Koala's</title>
     <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/subclasses.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <script src="./script.js" async></script>
+    <title>Koala's</title>
 </head>
 <body>
-    <header id="header">
-        <img src="./assets/icons/Logo.png" class="logo" alt="logo koala stocker">
-
-        <div class="user">
-            <span>Lucas Neves<img src="./assets/icons/caret-down.svg"></span>
-            <ul>
-                <li>Perfil</li>
-                <li>Sair</li>
-            </ul>
+    <div id="verde">
+        <div class="logo-container">
+            <img src="assets/icons/Logo.png" alt="Koala's Stocker">
         </div>
-    </header>
-    <main id="main">
-        <section id="grocery">
-            <div class="space topbottom">
-                <h2>Você andou fazendo alguma compra recentemente?</h2>
-                <button class="btn space topbottom all">Adicionar agora</button>
+        <h1 class="title">Seu estoque de comida, para você nunca mais se esquecer de suas compras.</h1>
+    </div>
+    <div id="branco">
+        <div id="box">
+            <h1 class="title">Log-in</h1>
+            <div class="input-container">
+                <label for="user">Usuário</label>
+                <input type="text" id="user" name="user">
             </div>
-            <h2>Compras recorrentes</h2>
-            <ul id="groceryList">
-
-            </ul>
-        </section>
-        <section id="stock">
-            <div class="top-config">
-                <h1>Meu estoque</h1>
-                <button class="btn">Visualizar receitas disponíveis</button>
+            <div class="input-container">
+                <label for="pass">Senha</label>
+                <input type="password" id="pass" name="pass">
             </div>
-            <div id="container-stock">
-                <ul id="stock-list">
-                    <li>
-                        <div class="item_stock">
-                            <img src="./assets/imgs/arroz_namorado.jpg">
-                            <h3>Ovos Brancos</h3>
-                            <h5>Quantidade</h5>
-                            <p><span class="red">12</span> unidades</p>
-                        </div>                 
-                    </li>
-                </ul>
+            <div class="remember-me">
+                <input type="checkbox" id="remember">
+                <label for="remember">Lembrar de mim</label>
             </div>
-        </section>
-        <section id="statistic">
-            <h2>Produtos com baixa quantidade</h2>
-        </section>
-    </main>
+            <button id="btn" class="btn all">Acessar</button>
+            <h5><a href="templates/main.html">Esqueceu a senha?</a></h5>
+            <span>ou</span>
+            <h5 class="regist">Sem conta? <a href="templates/main.html">Registre-se</a></h5>
+        </div>
+    </div>
 </body>
 </html>

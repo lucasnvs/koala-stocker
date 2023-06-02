@@ -28,6 +28,10 @@ li {
     list-style: none;
 }
 
+a {
+    color: #233FD2;
+}
+
 #header {
     position: sticky;
     display: flex;
@@ -87,12 +91,19 @@ li {
 }
 
 #header .user ul li {
+    position: relative;
     width: 100%;
     font-size: 1.2rem;
     text-align: center;
     padding: 3px 0px;
 }
 
+#header .user ul li a {
+    width: 100%;
+    height: 100%;
+    color: #FFF;
+    text-decoration: none;
+}
 #header .user ul li:hover {
     width: 100%;
     background-color: #15692c;

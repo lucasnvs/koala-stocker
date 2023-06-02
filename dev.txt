@@ -1,0 +1,25 @@
+|| Style Proportion ||
+
+Font Size === 100% ===
+
+h1 = 24px
+h2 = 24px
+h3 = 18.72px
+
+h5 = 13.28px
+
+p = 16px
+
+Font Size === 80% === 0.8 de 100%
+
+h1 = 
+h2 = 19.2px
+h3 = 14.97px
+
+h5 = 10.6px
+
+p = 12.8px
+
+Font Size === 50% ===
+
+Font Size === 40% ===

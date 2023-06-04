@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/subclasses.css">
     <title>Koala's</title>
+    <script src="./login.js" async></script>
 </head>
 <body>
     <div id="verde">
@@ -18,15 +19,15 @@
         <h1 class="title">Seu estoque de comida, para você nunca mais se esquecer de suas compras.</h1>
     </div>
     <div id="branco">
-        <div id="box">
+        <div id="login">
             <h1 class="title">Log-in</h1>
             <div class="input-container">
-                <input type="text" required id="user" name="user">
-                <label for="user">Usuário</label>
+                <input type="text" required id="email_login" name="email_login">
+                <label for="email_login">Email</label>
             </div>
             <div class="input-container">
-                <input type="password" required id="pass" name="pass">
-                <label for="pass">Senha</label>
+                <input type="password" required id="pass_login" name="pass_login">
+                <label for="pass_login">Senha</label>
             </div>
             <div class="remember-me">
                 <input type="checkbox" id="remember">
@@ -35,7 +36,31 @@
             <a href="./templates/main.html" class="all"><button id="btn" class="btn all">Acessar</button></a>
             <h5><a href="templates/main.html">Esqueceu a senha?</a></h5>
             <span>ou</span>
-            <h5 class="regist">Sem conta? <a href="templates/main.html">Registre-se</a></h5>
+            <h5 class="regist">Sem conta? <a id="login-ref">Registre-se</a></h5>
+        </div>
+        <div id="signup" class="hidden">
+            <h1 class="title">Sign-up</h1>
+            <div class="side">
+                <div class="input-container">
+                    <input type="text" required id="name_signup" name="name_signup">
+                    <label for="name_signup">Nome</label>
+                </div>
+                <div class="input-container">
+                    <input type="text" required id="undername_signup" name="undername_signup">
+                    <label for="undername_signup">Sobrenome</label>
+                </div>
+            </div>
+            <div class="input-container">
+                <input type="text" required id="email_signup" name="email_signup">
+                <label for="email_signup">Email</label>
+            </div>
+            <div class="input-container">
+                <input type="password" required id="pass_signup" name="pass_signup">
+                <label for="pass_signup">Senha</label>
+            </div>
+            <a href="./templates/main.html" class="all"><button id="btn" class="btn all">Começar</button></a>
+            <span>ou</span>
+            <h5 class="regist">Já tem conta? <a id="signup-ref">Entre agora</a></h5>
         </div>
     </div>
 </body>

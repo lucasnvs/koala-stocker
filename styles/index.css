@@ -44,16 +44,15 @@ body {
     background-color: white;
 }
 
-#box {
-    position: relative;
+#login {
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     width: 50%;
     gap: 15px;
     max-width: 400px;
-    height: 437px;
-    padding: 20px;
+    padding: 40px 20px;
     border-radius: 14px;
     background: #FFFFFF;
     box-shadow: 2px 5px 5px 3px rgba(0, 0, 0, 0.25);
@@ -110,7 +109,7 @@ body {
     border: 2px solid #48915C;
 }
 
-.remember-me {
+#login .remember-me {
     display: flex;
     align-self: stretch;
     align-items: center;
@@ -118,7 +117,7 @@ body {
     color: #494747;
 }
 
-.remember-me input[type="checkbox"] {
+#login .remember-me input[type="checkbox"] {
     position: relative;
     bottom: -1px;
     width: 1.3em;
@@ -132,7 +131,7 @@ body {
     outline: none;
     cursor: pointer;
 }
-.remember-me input[type="checkbox"]::after {
+#login .remember-me input[type="checkbox"]::after {
     content: "";
     position: absolute;
     left: .15em;
@@ -143,17 +142,17 @@ body {
     background-color: #FFF;
 }
 
-.remember-me input[type="checkbox"]:checked::after{
+#login .remember-me input[type="checkbox"]:checked::after{
     background-color: #48915C;
 }
 
-#box span {
+#login span {
     width: 100%;
     text-align: center;
     position: relative;
 }
 
-#box span::after {
+#login span::after {
     position: absolute;
     content: "";
     top: 50%;
@@ -162,7 +161,7 @@ body {
     height: 1px;
     background-color: #494747;
 }
-#box span::before {
+#login span::before {
     position: absolute;
     content: "";
     top: 50%;
@@ -172,7 +171,61 @@ body {
     background-color: #494747;
 }
 
-#box .title {
+#login .title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    text-align: center;
+    color: #48915C;
+}
+
+#signup {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    gap: 15px;
+    max-width: 400px;
+    padding: 40px 20px;
+    border-radius: 14px;
+    background: #FFFFFF;
+    box-shadow: 2px 5px 5px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+#signup .side {
+    display: flex;
+    gap: 10px;
+}
+
+#signup span {
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+#signup span::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    right: 0;
+    width: 45%;
+    height: 1px;
+    background-color: #494747;
+}
+#signup span::before {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 0;
+    width: 45%;
+    height: 1px;
+    background-color: #494747;
+}
+
+#signup .title {
     font-style: normal;
     font-weight: 400;
     font-size: 40px;
@@ -184,7 +237,10 @@ body {
 .regist {
     margin-top: 10px;
     align-self: stretch;
+} .regist a {
+    cursor: pointer;
 }
+
 h5 {
     color: #494747;
 }

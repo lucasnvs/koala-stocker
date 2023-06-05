@@ -28,7 +28,7 @@
     content: "";
     width: calc(100% - 8px);
     height: 3px;
-    background-color: #48915C;
+    background-color: var(--koala-color);
     border-radius: 10px;
 }
 
@@ -47,7 +47,7 @@
 
     #container-stock::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background-color: #48915C;
+        background-color: var(--koala-color);
     }
 
 #stock #container-stock #stock-list {
@@ -116,7 +116,7 @@
 
     #container-grocery-list::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background-color: #48915C;
+        background-color: var(--koala-color);
     }
 #grocery #grocery-list {
     display: flex;

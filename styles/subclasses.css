@@ -1,10 +1,13 @@
 .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 14px 9px;
     border-radius: 3px;
     border: 0;
     cursor: pointer;
     color: #FFF;
-    background-color: #48915C;
+    background-color: var(--koala-color);
     font-weight: 400;
 }.btn:hover {
     filter: brightness(1.2);
@@ -33,4 +36,9 @@
 
 .red {
     background-color: #D6382E;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

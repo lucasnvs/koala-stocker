@@ -15,6 +15,14 @@
     margin-bottom: 14px;
 }
 
+.align.left {
+    align-self: stretch;
+}
+
+.fit {
+    width: fit-content;
+}
+
 .all {
     width: 100%;
 }

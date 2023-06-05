@@ -1,6 +1,6 @@
 #main {
     background: #f3efef;
-    padding: 1.5% 10px 10px 0px;
+    padding: 1.2% 10px 10px 0px;
     height: calc(100vh - 100px);
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
@@ -8,27 +8,33 @@
 }
 
 #main section {
-    padding: 10px;
-}
-
-#stock {
-    height: calc(100vh - 130px);
+    height: calc(100vh - 123px);
     display: flex;
     flex-direction: column;
+    padding: 15px;
 }
 
 #stock .top-config {
-    position: -webkit-sticky;
-    padding: 8px 0px;
-    border-bottom: 2px solid #48915C;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    position: relative;
+    padding: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 5px;
+}
+#stock .top-config::after {
+    position: absolute;
+    bottom: 0;
+    content: "";
+    width: calc(100% - 8px);
+    height: 3px;
+    background-color: #48915C;
+    border-radius: 10px;
 }
 
+
 #container-stock {
+    padding: 10px;
     width: 100%;
     display: flex;
     overflow-y: auto;
@@ -36,7 +42,7 @@
 }
         
     #container-stock::-webkit-scrollbar {
-        width: 10px;
+        width: 9px;
     }
 
     #container-stock::-webkit-scrollbar-thumb {
@@ -48,7 +54,7 @@
     width: 100%;
     display: grid;
     gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
     grid-auto-flow: row;
 }
 
@@ -58,13 +64,13 @@
 }
 
 .item_stock {
-    background-color: #FFF;
     display: flex;
     width: fit-content;
     gap: 12px;
-    max-width: 180px;
-    padding: 15px;
+    width: 94%;
+    padding: 20px;
     flex-direction: column;
+    background-color: #FFF;
     border: 0;
     border-radius: 3px;
 
@@ -89,7 +95,68 @@
     width: 100%;
 }
 
-#statistic {
+#grocery {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#grocery #container-grocery-list {
+    padding: 10px;
+    width: 100%;
     display: flex;
     justify-content: center;
+    overflow-y: auto;
+    flex-grow: 1;
 }
+
+    #container-grocery-list::-webkit-scrollbar {
+        width: 9px;
+    }
+
+    #container-grocery-list::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #48915C;
+    }
+#grocery #grocery-list {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+#grocery .grocery-list-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: fit-content;
+    background-color: #FFF;
+    padding: 10px;
+    border: 0;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.228);
+}
+#grocery .grocery-list-card span:nth-child(2) { /* gambiarra */
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 3px;
+}
+
+#grocery .grocery-list-card span:nth-child(2) svg {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+#grocery .grocery-list-card span:nth-child(2) svg path{
+    fill: #494747;
+}
+
+#grocery .grocery-list-card button {
+    padding: 6px 4px;
+}
+
+#statistic {
+    display: flex;
+    align-items: center;
+}
+

@@ -4,7 +4,33 @@ const signup_ref = document.getElementById("signup-ref");
 const loginCard = document.getElementById("login");
 const signupCard = document.getElementById("signup");
 
+const email_login = document.getElementById("email_login");
+const pass_login = document.getElementById("pass_login");
+
+const checkRemember = document.getElementById("remember");
 signupCard.remove();
+
+email_login.addEventListener("keydown", (e) => {
+    if(e.code == "Enter") {
+        e.preventDefault();
+        pass_login.focus();
+    }
+});
+
+pass_login.addEventListener("keydown", (e) => {
+    if(e.code == "Enter") {
+        e.preventDefault();
+        checkRemember.focus();
+    }
+});
+
+checkRemember.addEventListener("keydown", (e) => {
+    if(e.code == "Enter") {
+        e.preventDefault();
+        checkRemember.checked = true;
+        btn_acess.focus();
+    }
+})
 
 login_ref.addEventListener('click', () => {
     loginCard.remove();
@@ -30,6 +56,6 @@ btn_acess.addEventListener('click', () => {
     btn_acess.textContent = "";
     btn_acess.append(loader);
     setTimeout(() => {
-        window.location.href = "./templates/main.html";
+        window.location.href = "./view/main.html";
     }, 800)
 });

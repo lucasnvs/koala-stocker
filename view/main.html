@@ -48,6 +48,13 @@
         <section id="stock">
             <div class="top-config">
                 <h1>Meu estoque</h1>
+                <input id="searchInStock" placeholder="Pesquisar produto...">
+                <select>
+                    <option selected value="all">Qualquer quantia</option>
+                    <option value="min">Pouco</option>
+                    <option value="medium">Razoável</option>
+                    <option value="max">Bastante</option>
+                </select>
                 <button class="btn">Visualizar receitas disponíveis</button>
             </div>
             <div id="container-stock">
@@ -62,9 +69,6 @@
                     </li> -->
                 </ul>
             </div>
-        </section>
-        <section id="statistic">
-            <h2>Produtos com baixa quantidade</h2>
         </section>
     </main>
 </body>

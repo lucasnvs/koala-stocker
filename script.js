@@ -1,7 +1,14 @@
 const list = document.getElementById('stock-list');
 const groceryList = document.getElementById('grocery-list');
 
-for (let index = 0; index < 20; index++) {
+var biglist = [
+    {nome: "Carne"},
+    {nome: "Frango"},
+    {nome: "Arroz Branco"},
+    {nome: "Arroz Preto"},
+]
+
+for (let index = 0; index < 50; index++) {
     var text = `                <li>
     <div class="item_stock">
         <img src="../assets/imgs/arroz_namorado.jpg">
@@ -13,7 +20,7 @@ for (let index = 0; index < 20; index++) {
     list.innerHTML += text;
 }
 
-for (let index = 0; index < 20; index++) {
+for (let index = 0; index < 3; index++) {
     var text = `                <li>
     <div class="grocery-list-card">
         <h2>Dieta Semanal Vegana</h2>
@@ -26,3 +33,11 @@ for (let index = 0; index < 20; index++) {
 </li>`
     groceryList.innerHTML += text;
 }
+
+const searchStock = document.getElementById('searchInStock');
+
+searchStock.addEventListener('input', (e) => {
+    let value = e.target.value.toLowerCase();
+    let resSearch = biglist.filter(item => item.nome.toLowerCase().includes(value));
+    console.log(resSearch);
+});

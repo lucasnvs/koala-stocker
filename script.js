@@ -1,24 +1,59 @@
 const list = document.getElementById('stock-list');
 const groceryList = document.getElementById('grocery-list');
 
-var biglist = [
-    {nome: "Carne"},
-    {nome: "Frango"},
-    {nome: "Arroz Branco"},
-    {nome: "Arroz Preto"},
+
+var items = [
+    {
+        "name": "Arroz",
+        "typeQuantity": "kg",
+        "quantity": 2.3,
+        "img": "../assets/imgs/arroz_namorado.jpg"
+    },
+    {
+        "name": "Ovos Brancos",
+        "typeQuantity": "unit",
+        "quantity": 12,
+        "img": "../assets/imgs/ovos.jpg"
+    },
+    {
+        "name": "Leite Integral 1L",
+        "typeQuantity": "unit",
+        "quantity": 3,
+        "img": "../assets/imgs/leite.png"
+    },
+    {
+        "name": "Massa Penne",
+        "typeQuantity": "kg",
+        "quantity": 1.5,
+        "img": "../assets/imgs/penne.png"
+    }
 ]
 
-for (let index = 0; index < 50; index++) {
-    var text = `                <li>
-    <div class="item_stock">
-        <img src="../assets/imgs/arroz_namorado.jpg">
-        <h3>Arroz Integral</h3>
-        <p>Quantidade</p>
-        <p><span class="red">3.5</span> kg</p>
-    </div>                 
-</li>`
-    list.innerHTML += text;
+function renderList() {
+    list.innerHTML = "";
+    
+    // "func verificaQuant" para verficar quantidade e pintar o span
+
+    for (let i = 0; i < 4; i++) { // gambiarra para ter quantidade;
+        items.forEach(item => {
+            var text = `
+            <li>
+                <div class="item_stock">
+                <div class="img-container">
+                    <img src=${item.img}>
+                </div>
+                    <h3>${item.name}</h3>
+                    <p>Quantidade</p>
+                    <p><span class="red">${item.quantity}</span> ${item.typeQuantity}</p>
+                </div>                 
+            </li>`
+            console.log(item);
+            list.innerHTML += text;
+        })
+    }
 }
+renderList();
+
 
 for (let index = 0; index < 3; index++) {
     var text = `                <li>
@@ -38,6 +73,6 @@ const searchStock = document.getElementById('searchInStock');
 
 searchStock.addEventListener('input', (e) => {
     let value = e.target.value.toLowerCase();
-    let resSearch = biglist.filter(item => item.nome.toLowerCase().includes(value));
+    let resSearch = items.filter(item => item.nome.toLowerCase().includes(value));
     console.log(resSearch);
 });

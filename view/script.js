@@ -1,35 +1,15 @@
 const list = document.getElementById('stock-list');
 const groceryList = document.getElementById('grocery-list');
 
+const fetchData = async () => {
+    var items = await fetch("../data.json").then( res => res.json());     
+    return items;
+}
 
-var items = [
-    {
-        "name": "Arroz",
-        "typeQuantity": "kg",
-        "quantity": 2.3,
-        "img": "../assets/imgs/arroz_namorado.jpg"
-    },
-    {
-        "name": "Ovos Brancos",
-        "typeQuantity": "unit",
-        "quantity": 12,
-        "img": "../assets/imgs/ovos.jpg"
-    },
-    {
-        "name": "Leite Integral 1L",
-        "typeQuantity": "unit",
-        "quantity": 3,
-        "img": "../assets/imgs/leite.png"
-    },
-    {
-        "name": "Massa Penne",
-        "typeQuantity": "kg",
-        "quantity": 1.5,
-        "img": "../assets/imgs/penne.png"
-    }
-]
+async function renderList(items) {
 
-function renderList() {
+    if(!items) items = await fetchData();
+
     list.innerHTML = "";
     
     // "func verificaQuant" para verficar quantidade e pintar o span
@@ -47,13 +27,11 @@ function renderList() {
                     <p><span class="red">${item.quantity}</span> ${item.typeQuantity}</p>
                 </div>                 
             </li>`
-            console.log(item);
             list.innerHTML += text;
         })
     }
 }
 renderList();
-
 
 for (let index = 0; index < 3; index++) {
     var text = `                <li>
@@ -71,8 +49,17 @@ for (let index = 0; index < 3; index++) {
 
 const searchStock = document.getElementById('searchInStock');
 
-searchStock.addEventListener('input', (e) => {
+searchStock.addEventListener('input', async (e) => {  
     let value = e.target.value.toLowerCase();
-    let resSearch = items.filter(item => item.nome.toLowerCase().includes(value));
-    console.log(resSearch);
+    let items = await fetchData();
+    let resSearch = items.filter(item => item.name.toLowerCase().includes(value));
+    renderList(resSearch);
+});
+
+// events de clique 
+
+const btnAddGroceryList = document.getElementById("btnAddGroceryList");
+
+btnAddGroceryList.addEventListener("click", () => {
+
 });

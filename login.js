@@ -42,9 +42,10 @@ signup_ref.addEventListener('click', () => {
     white_side.appendChild(loginCard)
 });
 
-const btn_acess = document.getElementById('btn_acess');
+///////////////////////////////////////////////////////////////////
+// Login Check
 
-btn_acess.addEventListener('click', () => {
+const loadingEffect = () => {
     let loader = document.createElement('div');
     loader.style.border = "5px solid #F3F3F3";
     loader.style.borderTop = "5px solid #104a1f";
@@ -57,5 +58,17 @@ btn_acess.addEventListener('click', () => {
     btn_acess.append(loader);
     setTimeout(() => {
         window.location.href = "./view/main.html";
-    }, 800)
+    }, 800);
+}
+
+const btn_acess = document.getElementById('btn_acess');
+
+btn_acess.addEventListener('click', () => {
+    // email_login
+    // pass_login
+
+    // checar...
+    // senha tem q ter no minimo 5 caracteres q incluem no minimo: 1 letra, 1 numero
+    loadingEffect();
 });
+

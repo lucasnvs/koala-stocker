@@ -1,20 +1,35 @@
-function card() {
+function card(title) {
+    let cardFrame = document.createElement('div');
+    cardFrame.className = "card-frame";
+
     let card = document.createElement('div');
     card.className = "card";
 
-    let btnCLose = document.createElement('button');
-    btnCLose.className = "btn-close";
-    btnCLose.addEventListener('click', () => {
-        card.remove();
+    let top_bar = document.createElement('div');
+    top_bar.className = "top-bar";
+
+    let cardTitle = document.createElement('h2');
+    cardTitle.textContent = title;
+
+    let btnClose = document.createElement('button');
+    btnClose.className = "btn-close";
+
+    btnClose.addEventListener('click', () => {
+        cardFrame.remove();
     });
 
-    return card;
+    top_bar.appendChild(cardTitle);
+    top_bar.appendChild(btnClose);
+    card.appendChild(top_bar);
+    cardFrame.appendChild(card);
+
+    return cardFrame;
 }
 
 function cardDialog(local) {
-    let cardBody = card();
+    document.body.appendChild(card("Item novo"));
 }
 
 const componentCreation = {
-    name: "Carro"
+    cardDialog: () => cardDialog()
 }

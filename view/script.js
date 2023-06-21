@@ -61,5 +61,5 @@ searchStock.addEventListener('input', async (e) => {
 const btnAddGroceryList = document.getElementById("btnAddGroceryList");
 
 btnAddGroceryList.addEventListener("click", () => {
-
+    componentCreation.cardDialog();
 });

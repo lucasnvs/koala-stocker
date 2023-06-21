@@ -147,8 +147,8 @@ body {
     position: absolute;
     left: .15em;
     top: .15em;
-    width: .7em;
-    height: .7em;
+    width: .75em;
+    height: .75em;
     border-radius: 50%;
     background-color: #FFF;
 }

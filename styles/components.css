@@ -1,11 +1,63 @@
+.card-frame {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00000084;
+}
+
 .card {
-    padding: 15px;
+    width: 600px;
+    border-radius: 6px;
+    padding: 16px;
     background-color: #FFF;
     -webkit-box-shadow: 10px 10px 13px -7px rgba(0,0,0,0.6);
     -moz-box-shadow: 10px 10px 13px -7px rgba(0,0,0,0.6);
     box-shadow: 10px 10px 13px -7px rgba(0,0,0,0.6);
 }
 
-.btn-close {
+.top-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    justify-content: space-between;
+}
 
+.top-bar h2 {
+    
+}
+
+.btn-close {
+    position: relative;
+    width: 2em;
+    height: 2em;
+    border: 0;
+    background: 0;
+    cursor: pointer;
+}
+
+.btn-close::after {
+    content: "";
+    position: absolute;
+    transform: rotate(50deg);
+    background-color: black;
+    width: 1.6em;
+    height: 2px;
+    left: .2em;
+    top: .9em;
+}
+.btn-close::before {
+    content: "";
+    position: absolute;
+    transform: rotate(-50deg);
+    background-color: black;
+    width: 1.6em;
+    height: 2px;
+    left: .2em;
+    top: .9em;
 }

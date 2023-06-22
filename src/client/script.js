@@ -2,7 +2,7 @@ const list = document.getElementById('stock-list');
 const groceryList = document.getElementById('grocery-list');
 
 const fetchData = async () => {
-    var items = await fetch("../data.json").then( res => res.json());     
+    var items = await fetch("../src/database/data.json").then( res => res.json());     
     return items;
 }
 

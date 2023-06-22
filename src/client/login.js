@@ -45,30 +45,9 @@ signup_ref.addEventListener('click', () => {
 ///////////////////////////////////////////////////////////////////
 // Login Check
 
-const loadingEffect = () => {
-    let loader = document.createElement('div');
-    loader.style.border = "5px solid #F3F3F3";
-    loader.style.borderTop = "5px solid #104a1f";
-    loader.style.borderRadius = "50%";
-    loader.style.width = "30px";
-    loader.style.height = "30px";
-    loader.style.animation = "spin 400ms linear infinite";
-
-    btn_acess.textContent = "";
-    btn_acess.append(loader);
-    setTimeout(() => {
-        window.location.href = "./view/main.html";
-    }, 800);
-}
-
 const btn_acess = document.getElementById('btn_acess');
 
-btn_acess.addEventListener('click', () => {
-    // email_login
-    // pass_login
-
-    // checar...
-    // senha tem q ter no minimo 5 caracteres q incluem no minimo: 1 letra, 1 numero
-    loadingEffect();
+btn_acess.addEventListener('click', (e) => {
+    loadingEffect(e.target);
 });
 

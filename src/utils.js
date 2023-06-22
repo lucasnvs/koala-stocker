@@ -23,7 +23,7 @@ setTimeout(() => {
 }, 800);
 }
 
-function checkEmailFormat(email) {
+function checkEmailFormat(email) { // expressão regular de formato de email: "blablabla@blablabla.com"
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 }

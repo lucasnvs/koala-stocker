@@ -17,6 +17,7 @@ const pageScripts = [
     scripts: [
       "componentCreation.js",
       "script.js",
+      "db.js"
     ]
   }
 ]
@@ -50,6 +51,7 @@ const items = [
     "dir": "./src/client/script.js"
   }
 ]
+
 function scriptHandler(url) {
   let page =  pageScripts.filter(page => page.url === url);
   if (page.length <= 0) return
@@ -58,7 +60,6 @@ function scriptHandler(url) {
     const scriptElement = document.createElement("script");
     let [path] = items.filter(value => value.file === filename);
     if(!path) return;
-    console.log(`.${path.dir}`)
     scriptElement.src = url != "index.html" ? `.${path.dir}` : path.dir;
     scriptElement.async = true;
     document.head.appendChild(scriptElement);
@@ -68,11 +69,9 @@ function scriptHandler(url) {
 function findRootDirectory() {
   let loc = window.location.pathname;
   let locSplited = loc.split("/");
-  console.log(loc)
   if(locSplited.length > 2) {
     loc = locSplited[locSplited.length - 1];
   }
-  console.log(loc)
   switch (loc) {
     case "/": return "index.html";
     case "index.html": return "index.html";
@@ -82,5 +81,4 @@ function findRootDirectory() {
 }
 
 const rootDirectory = findRootDirectory();
-console.log(rootDirectory)
 scriptHandler(rootDirectory);

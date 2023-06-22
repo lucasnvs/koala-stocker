@@ -13,7 +13,7 @@ btn_signup.addEventListener("click", () => {
     }
 
     if(checkEmailFormat(register.email) && checkPasswordFormat(register.pass)) {
-        if(db.set('users', register)) loadingEffect(btn_signup);
+        if(db.set('users', newObject(register))) loadingEffect(btn_signup);
     }
 
 });

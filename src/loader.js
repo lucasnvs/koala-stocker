@@ -2,6 +2,8 @@
 // os scripts com o path, para saber receber um paramentro 
 // na funcao que é uma lista com os nomes e talvez o html q quero inserir
 
+// ta engessado
+
 const pageScripts = [
   {
     url: "index.html",
@@ -9,7 +11,8 @@ const pageScripts = [
       "signup.js",
       "utils.js",
       "login.js",
-      "db.js"
+      "db.js",
+      "testDB.js"
     ]
   },
   {
@@ -25,6 +28,10 @@ const items = [
   {
     "file": "db.js",
     "dir": "./src/database/db.js"
+  },
+  {
+    "file": "testDB.js",
+    "dir": "./src/database/testDB.js"
   },
   {
     "file": "data.json",

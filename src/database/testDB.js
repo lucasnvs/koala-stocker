@@ -2,7 +2,7 @@
 // let compra1 = { desc: "barato" };
 // let compra2 = { desc: "limpo" };
 
-db.clear();
+// db.clear();
 
 // let user0 = {
 //     name: "Matheus",

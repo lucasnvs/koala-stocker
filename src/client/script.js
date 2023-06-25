@@ -1,17 +1,11 @@
 const list = document.getElementById('stock-list');
 const groceryList = document.getElementById('grocery-list');
 
-const fetchData = async () => {
-    var items = await fetch("../src/database/data.json").then( res => res.json());     
-    return items;
-}
+function renderList(items) {
 
-async function renderList(items) {
-
-    if(!items) items = await fetchData();
+    if(!items) items = db.get("compras");
 
     list.innerHTML = "";
-    
     // "func verificaQuant" para verficar quantidade e pintar o span
 
     for (let i = 0; i < 4; i++) { // gambiarra para ter quantidade;

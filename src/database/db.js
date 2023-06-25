@@ -1,22 +1,52 @@
 const db = localStorage;
 
-Storage.prototype.get = function(key) {
+const comprasList =
+    [
+        {
+            "name": "Arroz",
+            "typeQuantity": "kg",
+            "quantity": 2.3,
+            "img": "../assets/imgs/arroz_namorado.jpg"
+        },
+        {
+            "name": "Ovos Brancos",
+            "typeQuantity": "unit",
+            "quantity": 12,
+            "img": "../assets/imgs/ovos.jpg"
+        },
+        {
+            "name": "Leite Integral 1L",
+            "typeQuantity": "unit",
+            "quantity": 3,
+            "img": "../assets/imgs/leite.png"
+        },
+        {
+            "name": "Massa Penne",
+            "typeQuantity": "kg",
+            "quantity": 1.5,
+            "img": "../assets/imgs/penne.png"
+        }
+    ]
+
+Storage.prototype.get = function (key) {
     var tableObject = this.getItem(key);
     return tableObject && JSON.parse(tableObject);
 };
 
-Storage.prototype.set = function(key, newObject = []) { // pra ficar redondo
+Storage.prototype.set = function (key, object) { // pra ficar redondo
     let data = this.get(key);
-    if(data === null) {
+    if (data === null) {
         data = [];
+        object.id = 1;
     }
+    object.id = data.length + 1;
 
-    data.push(newObject)
+    data.push(object)
     this.setItem(key, JSON.stringify(data));
 
     let testData = this.get(key); // pega de novo para checar
-    let testDataString = JSON.stringify(testData[ testData.length - 1]);
-    let objectString = JSON.stringify(newObject);
+    let testDataString = JSON.stringify(testData[testData.length - 1]);
+    let objectString = JSON.stringify(object);
 
     if (testData.length == 0 || testDataString === objectString) { // checa para ver se funcionou
         return true;
@@ -30,15 +60,10 @@ const newObject = (object) => {
     return object;
 }
 
-const FK_newObject = ( object, idFKName, id ) => {
+const FK_newObject = (object, idFKName, id) => {
     object[idFKName] = id;
     return object;
 };
-
-const fetchData = async () => {
-    var items = await fetch("src/database/data.json").then( res => res.json());     
-    return items;
-}
 
 async function addDefaultItems() {
     db.clear();
@@ -49,13 +74,11 @@ async function addDefaultItems() {
         pass: "pastel2020",
     }
 
-    await db.set('users', newObject(user0))
+    db.set('users', newObject(user0))
 
-    let items = await fetchData();
-    items.forEach( product => {
+    comprasList.forEach(product => {
         db.set("compras", FK_newObject(product, "fkUserId", 0))
     });
 }
 
 addDefaultItems()
-// necessario adicionar id diretamente no objeto pessoa, usar o indice so funcionaria na situação que usei, tem reformular o codigo

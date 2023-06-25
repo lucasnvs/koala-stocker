@@ -18,9 +18,9 @@ const pageScripts = [
   {
     url: "main.html",
     scripts: [
+      "db.js",
       "componentCreation.js",
-      "script.js",
-      "db.js"
+      "script.js"
     ]
   }
 ]

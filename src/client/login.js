@@ -1,14 +1,11 @@
 const white_side = document.getElementById("branco");
 const login_ref = document.getElementById("login-ref");
-const signup_ref = document.getElementById("signup-ref");
 const loginCard = document.getElementById("login");
-const signupCard = document.getElementById("signup");
 
 const email_login = document.getElementById("email_login");
 const pass_login = document.getElementById("pass_login");
 
 const checkRemember = document.getElementById("remember");
-signupCard.remove();
 
 email_login.addEventListener("keydown", (e) => {
     if(e.code == "Enter") {
@@ -34,12 +31,7 @@ checkRemember.addEventListener("keydown", (e) => {
 
 login_ref.addEventListener('click', () => {
     loginCard.remove();
-    white_side.appendChild(signupCard);
-});
-
-signup_ref.addEventListener('click', () => {
-    signupCard.remove();
-    white_side.appendChild(loginCard)
+    white_side.appendChild(criaSignupCard());
 });
 
 ///////////////////////////////////////////////////////////////////

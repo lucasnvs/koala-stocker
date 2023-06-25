@@ -1,19 +1,19 @@
-// let compra0 = { desc1: "Caro" };
-// let compra1 = { desc2: "barato" };
-// let compra2 = { desc3: "limpo" };
+// let compra0 = { desc: "Caro" };
+// let compra1 = { desc: "barato" };
+// let compra2 = { desc: "limpo" };
 
-// db.clear();
+db.clear();
 
 // let user0 = {
-//     name: "Lucas",
-//     undername: "Neves",
-//     email: "lucas@email.com",
+//     name: "Matheus",
+//     undername: "Lima",
+//     email: "matheus@email.com",
 //     pass: "pastel2020",
 // }
 
 // let user1 = {
 //     name: "Carlos",
-//     undername: "Neves",
+//     undername: "Rodrigues",
 //     email: "carlos@email.com",
 //     pass: "pastel2020",
 // }

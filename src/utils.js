@@ -8,19 +8,19 @@ const checkInclusionOne = (arr1, arr2) => {
 }
 
 const loadingEffect = (local) => {
-let loader = document.createElement('div');
-loader.style.border = "5px solid #F3F3F3";
-loader.style.borderTop = "5px solid #104a1f";
-loader.style.borderRadius = "50%";
-loader.style.width = "30px";
-loader.style.height = "30px";
-loader.style.animation = "spin 400ms linear infinite";
+  let loader = document.createElement('div');
+  loader.style.border = "5px solid #F3F3F3";
+  loader.style.borderTop = "5px solid #104a1f";
+  loader.style.borderRadius = "50%";
+  loader.style.width = "30px";
+  loader.style.height = "30px";
+  loader.style.animation = "spin 400ms linear infinite";
 
-local.textContent = "";
-local.append(loader);
-setTimeout(() => {
-    window.location.href = "./view/main.html";
-}, 800);
+  local.textContent = "";
+  local.append(loader);
+  setTimeout(() => {
+      window.location.href = "./view/main.html";
+  }, 800);
 }
 
 function checkEmailFormat(email) { // expressão regular de formato de email: "blablabla@blablabla.com"

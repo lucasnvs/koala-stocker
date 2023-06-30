@@ -3,12 +3,12 @@ const groceryList = document.getElementById('grocery-list');
 
 function renderList(items) {
 
-    if(!items) items = db.get("compras");
+    if(!items) items = localStorage.get("compras");
 
     list.innerHTML = "";
     // "func verificaQuant" para verficar quantidade e pintar o span
 
-    for (let i = 0; i < 4; i++) { // gambiarra para ter quantidade;
+    for (let i = 0; i < 2; i++) { // gambiarra para ter quantidade;
         items.forEach(item => {
             var text = `
             <li>
@@ -43,9 +43,9 @@ for (let index = 0; index < 3; index++) {
 
 const searchStock = document.getElementById('searchInStock');
 
-searchStock.addEventListener('input', async (e) => {  
+searchStock.addEventListener('input', (e) => {  
     let value = e.target.value.toLowerCase();
-    let items = await fetchData();
+    let items = localStorage.get("compras");
     let resSearch = items.filter(item => item.name.toLowerCase().includes(value));
     renderList(resSearch);
 });

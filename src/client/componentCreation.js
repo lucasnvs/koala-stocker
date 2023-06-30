@@ -33,26 +33,45 @@ function cardDialog() {
 
     let input = document.createElement("input");
     input.type = "text";
-
+    input.placeholder = "Nome do Alimento..."
     let texth4 = document.createElement("h4");
     texth4.textContent = "Qual medida você deseja usar para este alimento?"
+
+
+    let container1 = document.createElement("div");
+    container1.className = "radio-container";
 
     let radioUnit = document.createElement("input");
     radioUnit.type = "radio";
     radioUnit.id = "radioUnit";
     radioUnit.value = "unit";
     radioUnit.name = "radio-range";
+
+    let labelunit = document.createElement("label");
+    labelunit.htmlFor = "radioUnit";
+    labelunit.textContent = "Unidade";
+
+    container1.appendChild(radioUnit);
+    container1.appendChild(labelunit);
+
     let radioKg = document.createElement("input");
     radioKg.type = "radio";
     radioKg.id = "radioKg";
     radioKg.value = "kg";
     radioKg.name = "radio-range";
 
+    let labelkg = document.createElement("label");
+    labelkg.htmlFor = "radioKg";
+    labelkg.textContent = "Kilogramas(Kg)";
+    container1.appendChild(radioKg);
+    container1.appendChild(labelkg);
+
     let imageInput = document.createElement("input");
     imageInput.type = "file";
 
     let btnSubmit = document.createElement("button");
     btnSubmit.textContent = "Cadastrar";
+    btnSubmit.className = "btn"
 
     btnSubmit.addEventListener("click", () => {
         var product;
@@ -73,7 +92,7 @@ function cardDialog() {
                 name: "Leite",
                 measure: measureChosen,
                 image: imageContent,
-                quantRange: { min: 0, max: 10}
+                quantRange: { min: 0, max: 10 }
             }
 
             console.log(product);
@@ -87,8 +106,7 @@ function cardDialog() {
 
     body.appendChild(input);
     body.appendChild(texth4);
-    body.appendChild(radioUnit);
-    body.appendChild(radioKg);
+    body.appendChild(container1);
     body.appendChild(imageInput);
     body.appendChild(btnSubmit);
 

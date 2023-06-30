@@ -1,5 +1,3 @@
-const db = localStorage;
-
 const comprasList =
     [
         {
@@ -66,7 +64,7 @@ const FK_newObject = (object, idFKName, id) => {
 };
 
 async function addDefaultItems() {
-    db.clear();
+    localStorage.clear();
     var user0 = {
         name: "Matheus",
         undername: "Lima",
@@ -74,10 +72,10 @@ async function addDefaultItems() {
         pass: "pastel2020",
     }
 
-    db.set('users', newObject(user0))
+    localStorage.set('users', newObject(user0))
 
     comprasList.forEach(product => {
-        db.set("compras", FK_newObject(product, "fkUserId", 0))
+        localStorage.set("compras", FK_newObject(product, "fkUserId", 1))
     });
 }
 

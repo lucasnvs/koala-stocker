@@ -28,7 +28,7 @@ async function renderStock(items) {
                     </div>
                         <h3>${item.name}</h3>
                         <p>Quantidade</p>
-                        <p><span class="red">${item.quantity}</span> ${item.typeQuantity}</p>
+                        <p><span>${item.quantity} ${item.typeQuantity}</span></p>
                     </div>                 
                 </li>`
             list.innerHTML += text;
@@ -108,12 +108,21 @@ document.getElementById("close-card-grocery").addEventListener("click", () => {
     card_grocery.classList.toggle("hidden");
 });
 
+document.getElementById("create-grocery-list").addEventListener("click", () => {
+
+})
+
 document.getElementById("save-grocery-list").addEventListener("click", () => {
     if(itensGroceryList.length == 0) return;
 
     itensGroceryList.forEach( item => {
-        localStorage.UpdateGroceryWhereId( loggedUser.id, item);
+        localStorage.UpdateGroceryWhereId( loggedUser.id, item );
+    })
+    itensGroceryList = [];
+    loadingEffect(document.getElementById("save-grocery-list"), () => {
         card_grocery.classList.toggle("hidden");
+        renderStock();
+        renderListGroceryCard();
     })
 })
 

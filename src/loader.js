@@ -19,6 +19,7 @@ const pageScripts = [
     url: "main.html",
     scripts: [
       "db.js",
+      "utils.js",
       "componentCreation.js",
       "main.js"
     ]
@@ -68,7 +69,7 @@ function scriptHandler(url) {
     let [path] = items.filter(value => value.file === filename);
     if(!path) return;
     scriptElement.src = url != "index.html" ? `.${path.dir}` : path.dir;
-    scriptElement.async = true;
+    scriptElement.defer = true;
     document.head.appendChild(scriptElement);
   });
 }

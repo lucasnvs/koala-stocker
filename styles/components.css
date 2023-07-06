@@ -91,7 +91,7 @@ input[type="radio"] {
 
 .grocery {
     width: fit-content;
-    height: 400px;
+    height: 460px;
     display: flex;
     flex-direction: row;
     padding-top: 10px;
@@ -116,6 +116,7 @@ input[type="radio"] {
 .grocery .list-container {
     position: relative;
     width: 100%;
+    height: calc(100% - 50px);
     max-height: fit-content;
     overflow-Y: auto;
     padding: 0px 4px;
@@ -135,11 +136,29 @@ tbody {
 }
 
 .grocery .container {
+    position: relative;
     width: 70%;
     display: flex;
     gap: 6px;
     flex-direction: column;
 }
+
+.btn-container {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.btn-container button {
+    min-width: 45px;
+}
+
+.btn-container #save-grocery-list {
+    width: 100%;
+}
+
 .grocery .list-container table thead {
     z-index: 1;
     position: sticky;
@@ -152,6 +171,7 @@ tbody {
 .grocery .list-container table th {
     padding: 5px;
     width: 50%;
+    min-width: 180px;
     text-align: left;
 }
 
@@ -170,6 +190,7 @@ tbody {
     overflow-y: auto;
     max-height: 100%;
 }
+
 #item-list::-webkit-scrollbar-thumb {
     background-color: var(--koala-color);
 }

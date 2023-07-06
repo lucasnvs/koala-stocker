@@ -27,7 +27,6 @@ const card = (title, child = "") => {
     return cardFrame;
 }
 
-
 const itemAddCard = ( object ) => {
     let body = document.createElement("div");
     body.classList = "card item";
@@ -91,6 +90,7 @@ const itemAddCard = ( object ) => {
     renderTotal();
 
     submit.addEventListener("click", () => {
+        if(total == 0) return
         let productObj = {
             id: object.id,
             name: object.name,
@@ -99,8 +99,15 @@ const itemAddCard = ( object ) => {
         }
         itensGroceryList.push(productObj);
         renderListGroceryCard();
+        total = 0;
+        renderTotal();
     });
 
+    document.getElementById("save-grocery-list").addEventListener("click", () => {
+        total = 0;
+        renderTotal();
+    });
+    
     body.appendChild(img);
     body.appendChild(container);
     body.appendChild(quant_container);

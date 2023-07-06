@@ -70,12 +70,22 @@ const itemAddCard = ( object ) => {
         quantSpan.textContent = `${total} ${object.typeQuantity}`;
     }
     addBtn.addEventListener("click", () => {
-        total += .5;
+        if(object.typeQuantity == "KG") {
+            total += .5;
+        }
+        if(object.typeQuantity == "UNIT") {
+            total += 1;
+        }
         renderTotal();
     })
     unaddBtn.addEventListener("click", () => {
         if(total <= 0) return;
-        total -= .5;
+        if(object.typeQuantity == "KG") {
+            total -= .5;
+        }
+        if(object.typeQuantity == "UNIT") {
+            total -= 1;
+        }
         renderTotal();
     })
     renderTotal();

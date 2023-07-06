@@ -62,15 +62,14 @@ Storage.prototype.UpdateGroceryWhereId = function( id, param = {} ) {
     let object = this.get("item");
     if(!object) throw new Error(`Chave - ${key} -  não encontrada ou não existe.`);
 
-    for( let ob in object ) {
-        if(ob.id == param.id) {
-            ob["grocery"] += param.value;
+    object.forEach( (ob) =>{
+        if(ob.fkUserId == id) {
+            if(ob.id == param.id) {
+                ob["quantity"] += param.value;
+            }  
         }
-    }
-
-    object.forEach( item => {
-        if(item.fkUserId == id) return item;
-    });
+    })
+    localStorage.setItem("item", JSON.stringify(object));
 }
 // criando objetos / padroes de tabelas sao criados quando nao existe nem uma tabela com a chave
 

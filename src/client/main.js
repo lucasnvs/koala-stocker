@@ -108,6 +108,15 @@ document.getElementById("close-card-grocery").addEventListener("click", () => {
     card_grocery.classList.toggle("hidden");
 });
 
+document.getElementById("save-grocery-list").addEventListener("click", () => {
+    if(itensGroceryList.length == 0) return;
+
+    itensGroceryList.forEach( item => {
+        localStorage.UpdateGroceryWhereId( loggedUser.id, item);
+        card_grocery.classList.toggle("hidden");
+    })
+})
+
 ///// card 
 document.getElementById("add-item").addEventListener("click", () => {
     card_newItem.classList.toggle("hidden");

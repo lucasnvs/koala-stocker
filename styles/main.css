@@ -65,6 +65,9 @@
         border-radius: 10px;
         background-color: var(--koala-color);
     }
+    #container-stock::-webkit-scrollbar-thumb:hover {
+        background-color: #13b63e;
+    }
 
 #stock #container-stock #stock-list {
     width: 100%;
@@ -141,6 +144,10 @@
     #container-grocery-list::-webkit-scrollbar-thumb {
         border-radius: 10px;
         background-color: var(--koala-color);
+    }
+    
+    #container-grocery-list::-webkit-scrollbar-thumb:hover {
+        background-color: #13b63e;
     }
 
 #grocery #grocery-list {

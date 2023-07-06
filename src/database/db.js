@@ -1,7 +1,7 @@
 const comprasList =
     [
         {
-            "name": "Arroz",
+            "name": "Arroz Integral",
             "typeQuantity": "KG",
             "quantity": 2.3,
             "img": "../assets/imgs/arroz_namorado.jpg"

@@ -45,5 +45,3 @@ function checkPasswordFormat(password) {
 
   return true;
 }
-
-

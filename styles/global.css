@@ -15,11 +15,6 @@
     --principal-light: #FFF;
 }
 
-@keyframes appear {
-    from { transform: scale(.7)}
-    to { transform: scale(1)}
-}
-
 h1 {
     font-size: 2rem;
 }

@@ -27,6 +27,66 @@ const card = (title, child = "") => {
     return cardFrame;
 }
 
+
+const itemAddCard = ( object ) => {
+    let body = document.createElement("div");
+    body.classList = "card item";
+
+    let img = document.createElement("img");
+    img.src = object.img;
+
+    let container = document.createElement("div");
+    container.className = "le"
+
+    let p = document.createElement("p");
+    p.textContent = object.name;
+    let submit = document.createElement("button");
+    submit.className = "btn";
+    submit.textContent = "Adicionar";
+
+    container.appendChild(p);
+    container.appendChild(submit);
+
+    let quant_container = document.createElement("div");
+    quant_container.className = "quant-container";
+
+    let addBtn = document.createElement("button");
+    addBtn.textContent = "+";
+    
+    let quantSpan = document.createElement("span");
+    quantSpan.textContent = "0 KG";
+
+    let unaddBtn = document.createElement("button");
+    unaddBtn.textContent = "-";
+
+    quant_container.appendChild(addBtn);
+    quant_container.appendChild(quantSpan);
+    quant_container.appendChild(unaddBtn);
+    /// lógica
+
+    let total = 0;
+
+    const renderTotal = () => {
+        quantSpan.textContent = `${total} ${object.typeQuantity}`;
+    }
+    addBtn.addEventListener("click", () => {
+        total += .5;
+        renderTotal();
+    })
+    unaddBtn.addEventListener("click", () => {
+        if(total <= 0) return;
+        total -= .5;
+        renderTotal();
+    })
+
+    renderTotal();
+
+    body.appendChild(img);
+    body.appendChild(container);
+    body.appendChild(quant_container);
+
+    return body;
+}
 const componentCreation = {
-    cardDialog: () => cardDialog()
+    itemAddCard: itemAddCard
 }

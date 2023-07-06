@@ -5,13 +5,13 @@ const card_newItem = document.getElementById("product-register");
 
 const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
 
-document.getElementById("user-name").textContent = loggedUser.name;
+document.getElementById("user-name").innerHTML = loggedUser.name;
 // renders
 
 async function renderStock(items) {
 
     if (!items) {
-        items = await localStorage.getWhereUserId("item", loggedUser.id)
+        items = await localStorage.getWhereUserId("item", loggedUser.id);
         if(!items) return;
     };
     console.log(items)
@@ -47,14 +47,40 @@ for (let index = 0; index < 3; index++) {
     groceryList.innerHTML += text;
 }
 
+async function renderItemListGroceryCard(items) {
+    let list = document.getElementById("item-list");
+    if (!items) {
+        items = await localStorage.getWhereUserId("item", loggedUser.id);
+        if(!items) return;
+    };
+
+    list.textContent = "";
+    items.forEach( item => {
+        let li = document.createElement("li");
+        let comp = componentCreation.itemAddCard(item);
+        li.appendChild(comp)
+        list.appendChild(li);
+    })
+}
+renderItemListGroceryCard();
+
 // search in stock
 const searchStock = document.getElementById('searchInStock');
 
-searchStock.addEventListener('input', (e) => {
+searchStock.addEventListener('input', async (e) => {
     let value = e.target.value.toLowerCase();
-    let items = localStorage.getWhereUserId("compras", loggedUser.id);
+    let items = await localStorage.getWhereUserId("item", loggedUser.id);
     let resSearch = items.filter(item => item.name.toLowerCase().includes(value));
     renderStock(resSearch);
+});
+
+const searchGrocery = document.getElementById('search-grocery-item');
+
+searchGrocery.addEventListener('input', async (e) => {
+    let value = e.target.value.toLowerCase();
+    let items = await localStorage.getWhereUserId("item", loggedUser.id);
+    let resSearch = items.filter(item => item.name.toLowerCase().includes(value));
+    renderItemListGroceryCard(resSearch);
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////

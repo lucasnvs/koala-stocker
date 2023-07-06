@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../styles/subclasses.css">
     <link rel="stylesheet" href="../styles/components.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <script src="../src/loader.js" async></script>
+    <script src="../src/loader.js" defer></script>
 </head>
 <body>
     <header id="header">
@@ -58,30 +58,15 @@
         </section>
     </main>
     <div id="card-grocery" class="hidden card-frame">
-        <div class="card">
+        <div class="card appear">
             <div class="top-bar">
                 <h2>Cadastrar alimento</h2><button id="close-card-grocery" class="btn-close"></button>
             </div>
             <div class="grocery">
                 <aside>
                     <p>Caso você tenha comprado um alimento que não tenha cadastrado ainda, <a id="add-item" href="#">cadastre agora.</a></p>
-                    <input type="text" placeholder="Nome do alimento...">
+                    <input id="search-grocery-item" type="text" placeholder="Nome do alimento...">
                     <ul id="item-list">
-                        <li>
-                            <div class="card item">
-                                <img src="../assets/imgs/arroz_namorado.jpg" alt="">
-                                <div class="le">
-                                    <p>Arroz Integral</p>
-                                    <button class="btn">Adicionar</button>
-                                </div>
-
-                                <div class="quant-container">
-                                    <button>+</button>
-                                    <span>0 KG</span>
-                                    <button>-</button>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                 </aside>
                 <div class="list-container">
@@ -168,7 +153,7 @@
         </div>
     </div>
     <div id="product-register" class="hidden card-frame">
-        <div class="card">
+        <div class="card appear">
             <div class="top-bar">
                 <h2>Cadastrar alimento</h2><button id="close-card-product" class="btn-close"></button>
             </div>

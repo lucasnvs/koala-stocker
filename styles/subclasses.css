@@ -34,7 +34,16 @@
     background-color: #D6382E;
 }
 
+.appear {
+    animation: appear 140ms linear;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@keyframes appear {
+    from { transform: scale(.7)}
+    to { transform: scale(1)}
 }

@@ -5,12 +5,14 @@ const card_newItem = document.getElementById("product-register");
 
 const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
 
+document.getElementById("user-name").textContent = loggedUser.name;
 // renders
 
 async function renderStock(items) {
 
     if (!items) {
         items = await localStorage.getWhereUserId("item", loggedUser.id)
+        if(!items) return;
     };
     console.log(items)
     list.innerHTML = "";

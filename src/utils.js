@@ -1,3 +1,7 @@
+function setLogged(user) {
+  localStorage.setItem("loggedUser", JSON.stringify(user))
+}
+
 const checkInclusionOne = (arr1, arr2) => {
   for (let i = 0; i < arr2.length; i++) {
     if (arr1.includes(arr2[i])) {
@@ -7,7 +11,7 @@ const checkInclusionOne = (arr1, arr2) => {
   return false;
 }
 
-const loadingEffect = (local) => {
+const loadingEffect = (local, func) => {
   let loader = document.createElement('div');
   loader.style.border = "5px solid #F3F3F3";
   loader.style.borderTop = "5px solid #104a1f";
@@ -19,7 +23,7 @@ const loadingEffect = (local) => {
   local.textContent = "";
   local.append(loader);
   setTimeout(() => {
-      window.location.href = "./view/main.html";
+    func();
   }, 800);
 }
 

@@ -121,7 +121,12 @@ function criaSignupCard() {
         }
     
         if(checkEmailFormat(register.email) && checkPasswordFormat(register.pass)) {
-            if(db.set('users', newObject(register))) loadingEffect(btn_signup);
+            if(localStorage.set('users', newObject(register))) {
+                loadingEffect(btn_signup, () => {
+                    divSignup.remove();
+                    white_side.appendChild(loginCard);
+                });
+            }
         }
     });
 

@@ -37,33 +37,31 @@ login_ref.addEventListener('click', () => {
 ///////////////////////////////////////////////////////////////////
 // Login Check
 
-function setLogged(user) {
-    localStorage.setItem("loggedUser", JSON.stringify(user))
-}
-
 const btn_acess = document.getElementById('btn_acess');
 btn_acess.addEventListener('click', (e) => {
-    // let users = localStorage.get("users");
-    // users.forEach(user => {
-    //     console.log(user);
-    //     if(user.email == email_login.value) {
-    //         console.log(user.email + " confere!");
-    //         if(user.pass == pass_login.value) {
-    //             console.log(user.pass + " confere!");
-    //             setLogged(user)
-    //             loadingEffect(e.target);
-    //         }
-    //     }
-    // });
+    let users = localStorage.get("users");
+    users.forEach(user => {
+        console.log(user);
+        if(user.email == email_login.value) {
+            console.log(user.email + " confere!");
+            if(user.pass == pass_login.value) {
+                console.log(user.pass + " confere!");
+                setLogged(user)
+                loadingEffect(e.target, () => {
+                    window.location.href = "view/main.html";
+                });
+            }
+        }
+    });
 
     /// test
-    let logged = {id: 1,         name: "Matheus",
-    undername: "Lima",
-    email: "matheus@email.com",
-    pass: "pastel2020"}
-    setLogged(logged)
+    // let logged = {id: 1,         name: "Matheus",
+    // undername: "Lima",
+    // email: "matheus@email.com",
+    // pass: "pastel2020"}
+    // setLogged(logged)
 
-    loadingEffect(e.target);
+    // loadingEffect(e.target);
 });
 
 localStorage.clear();

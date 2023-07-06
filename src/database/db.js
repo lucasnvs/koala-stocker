@@ -55,9 +55,7 @@ Storage.prototype.set = function (key, object) { // pra ficar redondo
 Storage.prototype.getWhereUserId = async function( key, id ) {
     let object = this.get(key);
     if(!object) throw new Error(`Chave - ${key} -  não encontrada ou não existe.`);
-    return object.map( item => {
-        if(item.fkUserId == id) return item;
-    });
+    return object.filter( item => item.fkUserId == id );
 };
 
 Storage.prototype.AddGroceryWhereId = function(key, id, param = {}) {

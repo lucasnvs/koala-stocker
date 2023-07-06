@@ -2,25 +2,25 @@ const comprasList =
     [
         {
             "name": "Arroz",
-            "typeQuantity": "kg",
+            "typeQuantity": "KG",
             "quantity": 2.3,
             "img": "../assets/imgs/arroz_namorado.jpg"
         },
         {
             "name": "Ovos Brancos",
-            "typeQuantity": "unit",
+            "typeQuantity": "UNIT",
             "quantity": 12,
             "img": "../assets/imgs/ovos.jpg"
         },
         {
             "name": "Leite Integral 1L",
-            "typeQuantity": "unit",
+            "typeQuantity": "UNIT",
             "quantity": 3,
             "img": "../assets/imgs/leite.png"
         },
         {
             "name": "Massa Penne",
-            "typeQuantity": "kg",
+            "typeQuantity": "KG",
             "quantity": 1.5,
             "img": "../assets/imgs/penne.png"
         }
@@ -52,6 +52,28 @@ Storage.prototype.set = function (key, object) { // pra ficar redondo
     return false;
 };
 
+Storage.prototype.getWhereUserId = async function( key, id ) {
+    let object = this.get(key);
+    if(!object) throw new Error(`Chave - ${key} -  não encontrada ou não existe.`);
+    return object.map( item => {
+        if(item.fkUserId == id) return item;
+    });
+};
+
+Storage.prototype.AddGroceryWhereId = function(key, id, param = {}) {
+    let object = this.get(key);
+    if(!object) throw new Error(`Chave - ${key} -  não encontrada ou não existe.`);
+
+    for( let ob in object ) {
+        if(ob.id == param.id) {
+            ob["grocery"] += param.value;
+        }
+    }
+
+    object.forEach( item => {
+        if(item.fkUserId == id) return item;
+    });
+}
 // criando objetos / padroes de tabelas sao criados quando nao existe nem uma tabela com a chave
 
 const newObject = (object) => {
@@ -64,7 +86,9 @@ const FK_newObject = (object, idFKName, id) => {
 };
 
 async function addDefaultItems() {
-    localStorage.clear();
+    localStorage.removeItem("users");
+    localStorage.removeItem("item"); // para nao dar sobreposição
+    
     var user0 = {
         name: "Matheus",
         undername: "Lima",
@@ -75,7 +99,7 @@ async function addDefaultItems() {
     localStorage.set('users', newObject(user0))
 
     comprasList.forEach(product => {
-        localStorage.set("compras", FK_newObject(product, "fkUserId", 1))
+        localStorage.set("item", FK_newObject(product, "fkUserId", 1))
     });
 }
 

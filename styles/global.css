@@ -41,6 +41,10 @@ a {
     color: #233FD2;
 }
 
+.hidden {
+    display: none!important;
+}
+
 #header {
     position: sticky;
     display: flex;

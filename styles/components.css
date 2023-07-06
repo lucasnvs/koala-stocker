@@ -1,4 +1,5 @@
 .card-frame {
+    z-index: 2;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -85,4 +86,122 @@ input[type="radio"] {
     grid-template-columns: 1fr 1fr;
     gap: 2px;
     color: var(--light-gray);
+}
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////// */
+
+.grocery {
+    width: fit-content;
+    height: 400px;
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+}
+
+.grocery aside {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.grocery aside input {
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 6px 10px;
+    outline: 0;
+    font-size: 15px;
+}
+
+.grocery .list-container {
+    position: relative;
+    width: 100%;
+    max-height: fit-content;
+    overflow-Y: auto;
+    padding: 0px 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grocery .list-container table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+
+tbody {
+    position: relative;
+    top: 35px;
+}
+
+.grocery .list-container table thead {
+    z-index: 1;
+    position: sticky;
+    top: 0;
+    background-color: #FFF;
+    width: 100%;
+}
+
+.grocery .list-container table td,
+.grocery .list-container table th {
+    padding: 5px;
+    width: 50%;
+    text-align: left;
+}
+
+.grocery .list-container table tr:nth-child(even) {
+    background-color: #2121215d;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+
+.card .item {
+    display: flex;
+}
+
+.card .item img {
+    width: 55px;
+    aspect-ratio: 1/1;
+}
+
+.card .item .le {
+    width: 100%;
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.card .item .quant-container {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    justify-content: center;
+    width: 100%;
+}
+
+.card .item .quant-container button {
+    cursor: pointer;
+    width: 27px;
+    height: 29px;
+    border: 1px solid;
+    border-radius: 100px;
+}
+
+.card .item .quant-container button:nth-child(1) {
+    border: 1px solid rgb(32, 167, 14);
+    background-color: rgba(32, 167, 14, 0.447);
+    color: rgb(32, 167, 14);
+}
+
+.card .item .quant-container button {
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.436);
+    color: red;
+}
+.card .item .quant-container button:hover {
+    filter: brightness(1.3);
 }

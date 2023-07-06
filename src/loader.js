@@ -20,7 +20,7 @@ const pageScripts = [
     scripts: [
       "db.js",
       "componentCreation.js",
-      "script.js"
+      "main.js"
     ]
   }
 ]
@@ -54,8 +54,8 @@ const items = [
     "dir": "./src/client/componentCreation.js"
   },
   {
-    "file": "script.js",
-    "dir": "./src/client/script.js"
+    "file": "main.js",
+    "dir": "./src/client/main.js"
   }
 ]
 

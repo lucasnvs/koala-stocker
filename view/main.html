@@ -60,17 +60,140 @@
             </div>
             <div id="container-stock">
                 <ul id="stock-list">
-                    <!-- <li>
-                        <div class="item_stock">
-                            <img src="../assets/imgs/arroz_namorado.jpg">
-                            <h3>Ovos Brancos</h3>
-                            <h5>Quantidade</h5>
-                            <p><span class="red">12</span> unidades</p>
-                        </div>                 
-                    </li> -->
                 </ul>
             </div>
         </section>
     </main>
+    <div id="card-grocery" class="hidden card-frame">
+        <div class="card">
+            <div class="top-bar">
+                <h2>Cadastrar alimento</h2><button id="close-card-grocery" class="btn-close"></button>
+            </div>
+            <div class="grocery">
+                <aside>
+                    <p>Caso você tenha comprado um alimento que não tenha cadastrado ainda, <a id="add-item" href="#">cadastre agora.</a></p>
+                    <input type="text" placeholder="Nome do alimento...">
+                    <ul id="item-list">
+                        <li>
+                            <div class="card item">
+                                <img src="../assets/imgs/arroz_namorado.jpg" alt="">
+                                <div class="le">
+                                    <p>Arroz Integral</p>
+                                    <button class="btn">Adicionar</button>
+                                </div>
+
+                                <div class="quant-container">
+                                    <button>+</button>
+                                    <span>0 KG</span>
+                                    <button>-</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </aside>
+                <div class="list-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Alimento</th>
+                                <th>Quantidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                            <tr>
+                                <td>Arroz Integral</td>
+                                <td>2.0 kg</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product-register" class="hidden card-frame">
+        <div class="card">
+            <div class="top-bar">
+                <h2>Cadastrar alimento</h2><button id="close-card-product" class="btn-close"></button>
+            </div>
+            <div class="product-register">
+                <input id="title-item" type="text" placeholder="Nome do Alimento...">
+                <h4>Qual medida você deseja usar para este alimento?</h4>
+                <div class="radio-container">
+                    <input type="radio" id="radioUnit" value="UNIT" name="radio-range">
+                    <label for="radioUnit">Unidade</label>
+                    <input type="radio" id="radioKg" value="KG" name="radio-range">
+                    <label for="radioKg">Kilogramas(Kg)</label>
+                </div>
+
+                <input id="file-input" type="file">
+                <button id="btn-product-submit" class="btn">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

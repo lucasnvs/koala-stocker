@@ -5,6 +5,8 @@ const card_newItem = document.getElementById("product-register");
 
 const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
 
+var itensGroceryList = [];
+
 document.getElementById("user-name").innerHTML = loggedUser.name;
 // renders
 
@@ -16,20 +18,22 @@ async function renderStock(items) {
     };
     console.log(items)
     list.innerHTML = "";
-    items.forEach(item => {
-        var text = `
-            <li>
-                <div class="item_stock">
-                <div class="img-container">
-                    <img src=${item.img}>
-                </div>
-                    <h3>${item.name}</h3>
-                    <p>Quantidade</p>
-                    <p><span class="red">${item.quantity}</span> ${item.typeQuantity}</p>
-                </div>                 
-            </li>`
-        list.innerHTML += text;
-    })
+    for (let index = 0; index < 10; index++) {
+        items.forEach(item => {
+            var text = `
+                <li>
+                    <div class="item_stock">
+                    <div class="img-container">
+                        <img src=${item.img}>
+                    </div>
+                        <h3>${item.name}</h3>
+                        <p>Quantidade</p>
+                        <p><span class="red">${item.quantity}</span> ${item.typeQuantity}</p>
+                    </div>                 
+                </li>`
+            list.innerHTML += text;
+        })
+    }
 }
 renderStock();
 // renderGroceryList
@@ -47,7 +51,7 @@ for (let index = 0; index < 3; index++) {
     groceryList.innerHTML += text;
 }
 
-async function renderItemListGroceryCard(items) {
+async function renderItemGroceryCard(items) {
     let list = document.getElementById("item-list");
     if (!items) {
         items = await localStorage.getWhereUserId("item", loggedUser.id);
@@ -62,8 +66,16 @@ async function renderItemListGroceryCard(items) {
         list.appendChild(li);
     })
 }
-renderItemListGroceryCard();
+renderItemGroceryCard();
 
+
+function renderListGroceryCard() {
+    let tbody = document.getElementById("item-table");
+    tbody.innerHTML = "";
+    itensGroceryList.forEach( item => {
+        tbody.innerHTML += `<tr><td>${item.name}</td><td>${item.value} ${item.typeQuantity}</td></tr>`
+    })
+}
 // search in stock
 const searchStock = document.getElementById('searchInStock');
 
@@ -80,7 +92,7 @@ searchGrocery.addEventListener('input', async (e) => {
     let value = e.target.value.toLowerCase();
     let items = await localStorage.getWhereUserId("item", loggedUser.id);
     let resSearch = items.filter(item => item.name.toLowerCase().includes(value));
-    renderItemListGroceryCard(resSearch);
+    renderItemGroceryCard(resSearch);
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -137,6 +149,7 @@ document.getElementById("btn-product-submit").addEventListener("click", () => {
             imageInput.value = "";
             card_newItem.classList.toggle("hidden");
             renderStock();
+            renderItemGroceryCard();
         }
     }
 

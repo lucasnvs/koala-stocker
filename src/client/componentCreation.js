@@ -78,8 +78,18 @@ const itemAddCard = ( object ) => {
         total -= .5;
         renderTotal();
     })
-
     renderTotal();
+
+    submit.addEventListener("click", () => {
+        let productObj = {
+            id: object.id,
+            name: object.name,
+            value: total, // valor a ser adicionado
+            typeQuantity: object.typeQuantity
+        }
+        itensGroceryList.push(productObj);
+        renderListGroceryCard();
+    });
 
     body.appendChild(img);
     body.appendChild(container);

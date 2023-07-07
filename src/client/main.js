@@ -18,7 +18,6 @@ async function renderStock(items) {
     };
     console.log(items)
     list.innerHTML = "";
-    for (let index = 0; index < 10; index++) {
         items.forEach(item => {
             var text = `
                 <li>
@@ -33,7 +32,6 @@ async function renderStock(items) {
                 </li>`
             list.innerHTML += text;
         })
-    }
 }
 renderStock();
 // renderGroceryList
@@ -109,7 +107,12 @@ document.getElementById("close-card-grocery").addEventListener("click", () => {
 });
 
 document.getElementById("create-grocery-list").addEventListener("click", () => {
-
+    if(itensGroceryList.length == 0) return;
+    localStorage.set("grocery", FK_newObject(itensGroceryList, "fkUserId", loggedUser.id));
+    loadingEffect(document.getElementById("create-grocery-list"), () => {
+        card_grocery.classList.toggle("hidden");
+        renderListGroceryCard();
+    })
 })
 
 document.getElementById("save-grocery-list").addEventListener("click", () => {

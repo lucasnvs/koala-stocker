@@ -1,4 +1,4 @@
-import { itensGroceryList } from "./main";
+import { itensGroceryList, renderGroceryList, renderItemGroceryCard, renderListGroceryCard, renderStock } from "./main.js";
 
 const card = (title, child = "") => {
     let cardFrame = document.createElement('div');

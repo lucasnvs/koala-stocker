@@ -55,6 +55,7 @@ const setMethodsDB = () => {
     
     Storage.prototype.getWhereUserId = async function( key, id ) {
         let object = this.get(key);
+        if(!object) return;
         if(!object) throw new Error(`Chave - ${key} -  não encontrada ou não existe.`);
         return object.filter( item => item.fkUserId == id );
     };

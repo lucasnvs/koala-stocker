@@ -15,7 +15,12 @@ export var itensGroceryList = [];
 document.getElementById("user-name").innerHTML = loggedUser.name;
 // renders
 
-async function renderStock(items) {
+//pre rendering 
+renderStock();
+renderGroceryList();
+renderItemGroceryCard();
+
+export async function renderStock(items) {
 
     if (!items) {
         items = await db.getWhereUserId("item", loggedUser.id);
@@ -38,9 +43,8 @@ async function renderStock(items) {
             list.innerHTML += text;
         })
 }
-renderStock();
 
-async function renderGroceryList() {
+export async function renderGroceryList() {
     let items = await db.getWhereUserId("grocery", loggedUser.id);
     if(!items) return
     items.forEach( (item) => {
@@ -48,9 +52,8 @@ async function renderGroceryList() {
         groceryList.appendChild(comp);
     })
 }
-renderGroceryList();
 
-async function renderItemGroceryCard(items) {
+export async function renderItemGroceryCard(items) {
     let list = document.getElementById("item-list");
     if (!items) {
         items = await db.getWhereUserId("item", loggedUser.id);
@@ -65,10 +68,8 @@ async function renderItemGroceryCard(items) {
         list.appendChild(li);
     })
 }
-renderItemGroceryCard();
 
-
-function renderListGroceryCard() {
+export function renderListGroceryCard() {
     let tbody = document.getElementById("item-table");
     tbody.innerHTML = "";
     itensGroceryList.forEach( item => {

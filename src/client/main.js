@@ -34,20 +34,16 @@ async function renderStock(items) {
         })
 }
 renderStock();
-// renderGroceryList
-for (let index = 0; index < 3; index++) {
-    var text = `                <li>
-    <div class="grocery-list-card">
-        <h2>Dieta Semanal Vegana</h2>
-        <span>Listar 14 itens <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z" fill="#FFF"/></svg></span>
-        <ul class="list">
-        </ul>
-        <p>Valor estimado: <span>R$76.80</span></p>
-        <button class="btn">Usar</button>
-    </div>
-</li>`
-    groceryList.innerHTML += text;
+
+async function renderGroceryList() {
+    let items = await localStorage.getWhereUserId("grocery", loggedUser.id);
+    if(!items) return
+    items.forEach( (item) => {
+        let comp = componentCreation.groceryCard(item);
+        groceryList.appendChild(comp);
+    })
 }
+renderGroceryList();
 
 async function renderItemGroceryCard(items) {
     let list = document.getElementById("item-list");
@@ -108,9 +104,11 @@ document.getElementById("close-card-grocery").addEventListener("click", () => {
 
 document.getElementById("create-grocery-list").addEventListener("click", () => {
     if(itensGroceryList.length == 0) return;
-    localStorage.set("grocery", FK_newObject(itensGroceryList, "fkUserId", loggedUser.id));
+    localStorage.set("grocery", FK_newList(itensGroceryList, loggedUser.id));
+    itensGroceryList = [];
     loadingEffect(document.getElementById("create-grocery-list"), () => {
         card_grocery.classList.toggle("hidden");
+        renderGroceryList()
         renderListGroceryCard();
     })
 })

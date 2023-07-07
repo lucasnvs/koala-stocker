@@ -20,14 +20,14 @@ const loadingEffect = (local, func) => {
   loader.style.height = "30px";
   loader.style.animation = "spin 400ms linear infinite";
 
-  let auxText = local.textContent;
+  let auxText = local.children[0];
   local.textContent = "";
 
   local.append(loader);
   setTimeout(() => {
     func();
     loader.remove();
-    local.textContent = auxText;
+    local.appendChild(auxText);
   }, 800);
 }
 

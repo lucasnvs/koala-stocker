@@ -27,7 +27,7 @@ const card = (title, child = "") => {
     return cardFrame;
 }
 
-const itemAddCard = ( object ) => {
+const itemAddCard = (object) => {
     let body = document.createElement("div");
     body.classList = "card item";
 
@@ -51,7 +51,7 @@ const itemAddCard = ( object ) => {
 
     let addBtn = document.createElement("button");
     addBtn.textContent = "+";
-    
+
     let quantSpan = document.createElement("span");
     quantSpan.textContent = "0 KG";
 
@@ -69,20 +69,20 @@ const itemAddCard = ( object ) => {
         quantSpan.textContent = `${total} ${object.typeQuantity}`;
     }
     addBtn.addEventListener("click", () => {
-        if(object.typeQuantity == "KG") {
+        if (object.typeQuantity == "KG") {
             total += .5;
         }
-        if(object.typeQuantity == "UNIT") {
+        if (object.typeQuantity == "UNIT") {
             total += 1;
         }
         renderTotal();
     })
     unaddBtn.addEventListener("click", () => {
-        if(total <= 0) return;
-        if(object.typeQuantity == "KG") {
+        if (total <= 0) return;
+        if (object.typeQuantity == "KG") {
             total -= .5;
         }
-        if(object.typeQuantity == "UNIT") {
+        if (object.typeQuantity == "UNIT") {
             total -= 1;
         }
         renderTotal();
@@ -90,7 +90,7 @@ const itemAddCard = ( object ) => {
     renderTotal();
 
     submit.addEventListener("click", () => {
-        if(total == 0) return
+        if (total == 0) return
         let productObj = {
             id: object.id,
             name: object.name,
@@ -107,13 +107,58 @@ const itemAddCard = ( object ) => {
         total = 0;
         renderTotal();
     });
-    
+
     body.appendChild(img);
     body.appendChild(container);
     body.appendChild(quant_container);
 
     return body;
 }
+
+const groceryCard = ( { arr: object } ) => {
+
+    let div = document.createElement("div");
+    div.classList = "grocery-list-card";
+
+    let h2 = document.createElement("h2");
+    h2.textContent = "Compra";
+
+    let span = document.createElement("span");
+    span.innerHTML = `Listar ${object.length} itens <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z" fill="#FFF"/></svg>`;
+
+
+    span.addEventListener("click", () => {
+        ul.classList.toggle("hidden");
+    })
+    let ul = document.createElement("ul");
+    ul.classList = "list hidden";
+
+    object.forEach(element => {
+        let li = document.createElement("li");
+        li.textContent = `${element.name} - ${element.value} ${element.typeQuantity}`
+        ul.appendChild(li);
+    });
+
+    let btn = document.createElement("button");
+    btn.textContent = "Usar";
+    btn.className = "btn";
+
+    btn.addEventListener("click", () => {
+        object.forEach( item => {
+            localStorage.UpdateGroceryWhereId( loggedUser.id, item );
+        })
+        renderStock();
+    });
+
+    div.appendChild(h2);
+    div.appendChild(span);
+    div.appendChild(ul);
+    div.appendChild(btn);
+
+    console.log("renderizando");
+    return div;
+}
 const componentCreation = {
-    itemAddCard: itemAddCard
+    itemAddCard: itemAddCard,
+    groceryCard: groceryCard
 }

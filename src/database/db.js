@@ -77,14 +77,20 @@ const newObject = (object) => {
     return object;
 }
 
+const FK_newList = (list, id) => {
+    let obList = { fkUserId: id, arr: list };
+    return obList;
+}
+
 const FK_newObject = (object, idFKName, id) => {
     object[idFKName] = id;
     return object;
 };
 
 async function addDefaultItems() {
-    localStorage.removeItem("users");
-    localStorage.removeItem("item"); // para nao dar sobreposição
+    // localStorage.removeItem("users");
+    // localStorage.removeItem("grocery"); // desenvolvimento somente
+    // localStorage.removeItem("item"); // para nao dar sobreposição
     
     var user0 = {
         name: "Matheus",
@@ -93,11 +99,12 @@ async function addDefaultItems() {
         pass: "pastel2020",
     }
 
-    localStorage.set('users', newObject(user0))
-
-    comprasList.forEach(product => {
-        localStorage.set("item", FK_newObject(product, "fkUserId", 1))
-    });
+    if(localStorage.getItem("users") == null) {
+        localStorage.set('users', newObject(user0))
+        comprasList.forEach(product => {
+            localStorage.set("item", FK_newObject(product, "fkUserId", 1))
+        });
+    }
 }
 
 addDefaultItems()

@@ -133,7 +133,6 @@
     padding: 10px;
     width: 100%;
     display: flex;
-    justify-content: center;
     overflow-y: auto;
     flex-grow: 1;
 }
@@ -152,14 +151,16 @@
     }
 
 #grocery #grocery-list {
+    width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 20px;
     flex-direction: column;
 }
 
-#grocery #grocery-list li {
+#grocery #grocery-list > li {
+    width: 100%;
     height: fit-content;
 }
 
@@ -167,7 +168,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    width: fit-content;
+    width: 100%;
     background-color: #FFF;
     padding: 10px;
     border: 0;

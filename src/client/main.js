@@ -1,11 +1,16 @@
+import { componentCreation } from "./componentCreation.js";
+import {db , addDefaultItems, setMethodsDB } from "../database/db.js";
+
+setMethodsDB();
+
 const list = document.getElementById('stock-list');
 const groceryList = document.getElementById('grocery-list');
 const card_grocery = document.getElementById("card-grocery");
 const card_newItem = document.getElementById("product-register");
 
-const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+const loggedUser = JSON.parse(db.getItem("loggedUser"));
 
-var itensGroceryList = [];
+export var itensGroceryList = [];
 
 document.getElementById("user-name").innerHTML = loggedUser.name;
 // renders
@@ -13,7 +18,7 @@ document.getElementById("user-name").innerHTML = loggedUser.name;
 async function renderStock(items) {
 
     if (!items) {
-        items = await localStorage.getWhereUserId("item", loggedUser.id);
+        items = await db.getWhereUserId("item", loggedUser.id);
         if(!items) return;
     };
     console.log(items)
@@ -36,7 +41,7 @@ async function renderStock(items) {
 renderStock();
 
 async function renderGroceryList() {
-    let items = await localStorage.getWhereUserId("grocery", loggedUser.id);
+    let items = await db.getWhereUserId("grocery", loggedUser.id);
     if(!items) return
     items.forEach( (item) => {
         let comp = componentCreation.groceryCard(item);
@@ -48,7 +53,7 @@ renderGroceryList();
 async function renderItemGroceryCard(items) {
     let list = document.getElementById("item-list");
     if (!items) {
-        items = await localStorage.getWhereUserId("item", loggedUser.id);
+        items = await db.getWhereUserId("item", loggedUser.id);
         if(!items) return;
     };
 
@@ -70,12 +75,13 @@ function renderListGroceryCard() {
         tbody.innerHTML += `<tr><td>${item.name}</td><td>${item.value} ${item.typeQuantity}</td></tr>`
     })
 }
+
 // search in stock
 const searchStock = document.getElementById('searchInStock');
 
 searchStock.addEventListener('input', async (e) => {
     let value = e.target.value.toLowerCase();
-    let items = await localStorage.getWhereUserId("item", loggedUser.id);
+    let items = await db.getWhereUserId("item", loggedUser.id);
     let resSearch = items.filter(item => item.name.toLowerCase().includes(value));
     renderStock(resSearch);
 });
@@ -84,7 +90,7 @@ const searchGrocery = document.getElementById('search-grocery-item');
 
 searchGrocery.addEventListener('input', async (e) => {
     let value = e.target.value.toLowerCase();
-    let items = await localStorage.getWhereUserId("item", loggedUser.id);
+    let items = await db.getWhereUserId("item", loggedUser.id);
     let resSearch = items.filter(item => item.name.toLowerCase().includes(value));
     renderItemGroceryCard(resSearch);
 });
@@ -104,7 +110,7 @@ document.getElementById("close-card-grocery").addEventListener("click", () => {
 
 document.getElementById("create-grocery-list").addEventListener("click", () => {
     if(itensGroceryList.length == 0) return;
-    localStorage.set("grocery", FK_newList(itensGroceryList, loggedUser.id));
+    db.set("grocery", FK_newList(itensGroceryList, loggedUser.id));
     itensGroceryList = [];
     loadingEffect(document.getElementById("create-grocery-list"), () => {
         card_grocery.classList.toggle("hidden");
@@ -117,7 +123,7 @@ document.getElementById("save-grocery-list").addEventListener("click", () => {
     if(itensGroceryList.length == 0) return;
 
     itensGroceryList.forEach( item => {
-        localStorage.UpdateGroceryWhereId( loggedUser.id, item );
+        db.UpdateGroceryWhereId( loggedUser.id, item );
     })
     itensGroceryList = [];
     loadingEffect(document.getElementById("save-grocery-list"), () => {
@@ -160,8 +166,7 @@ document.getElementById("btn-product-submit").addEventListener("click", () => {
             img: imageContent
         }
 
-        console.log(product);
-        if(localStorage.set("item", FK_newObject(product, "fkUserId", loggedUser.id))) {
+        if(db.set("item", FK_newObject(product, "fkUserId", loggedUser.id))) {
             title.value = "";
             radioKg.checked = false;
             radioUnit.checked = false;

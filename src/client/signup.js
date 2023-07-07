@@ -1,4 +1,8 @@
-function criaSignupCard() {
+import { loadingEffect } from "../utils.js";
+import { db } from "../database/db.js";
+import { loginCard, white_side } from "./login.js";
+
+export function criaSignupCard() {
     var divSignup = document.createElement('div');
     divSignup.id = 'signup';
 
@@ -121,7 +125,7 @@ function criaSignupCard() {
         }
     
         if(checkEmailFormat(register.email) && checkPasswordFormat(register.pass)) {
-            if(localStorage.set('users', newObject(register))) {
+            if(db.set('users', newObject(register))) {
                 loadingEffect(btn_signup, () => {
                     divSignup.remove();
                     white_side.appendChild(loginCard);

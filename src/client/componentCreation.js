@@ -1,3 +1,5 @@
+import { itensGroceryList } from "./main";
+
 const card = (title, child = "") => {
     let cardFrame = document.createElement('div');
     cardFrame.className = "card-frame";
@@ -145,7 +147,7 @@ const groceryCard = ( { arr: object } ) => {
 
     btn.addEventListener("click", () => {
         object.forEach( item => {
-            localStorage.UpdateGroceryWhereId( loggedUser.id, item );
+            db.UpdateGroceryWhereId( loggedUser.id, item );
         })
         renderStock();
     });
@@ -158,7 +160,7 @@ const groceryCard = ( { arr: object } ) => {
     console.log("renderizando");
     return div;
 }
-const componentCreation = {
+export const componentCreation = {
     itemAddCard: itemAddCard,
     groceryCard: groceryCard
 }

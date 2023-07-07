@@ -1,4 +1,4 @@
-function setLogged(user) {
+export function setLogged(user) {
   localStorage.setItem("loggedUser", JSON.stringify(user))
 }
 
@@ -11,7 +11,7 @@ const checkInclusionOne = (arr1, arr2) => {
   return false;
 }
 
-const loadingEffect = (local, func) => {
+export const loadingEffect = (local, func) => {
   let loader = document.createElement('div');
   loader.style.border = "5px solid #F3F3F3";
   loader.style.borderTop = "5px solid #104a1f";
@@ -31,12 +31,12 @@ const loadingEffect = (local, func) => {
   }, 800);
 }
 
-function checkEmailFormat(email) { // expressão regular de formato de email: "blablabla@blablabla.com"
+export function checkEmailFormat(email) { // expressão regular de formato de email: "blablabla@blablabla.com"
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 }
 
-function checkPasswordFormat(password) {
+export function checkPasswordFormat(password) {
   let number = ["0","1","2","3","4","5","6","7","8","9"];
   let finalListABC = [];
   let abcList = "abcdefghihklmnopqrstuv";

@@ -1,6 +1,12 @@
-const white_side = document.getElementById("branco");
+import { addDefaultItems, db, setMethodsDB } from "../database/db.js";
+import { loadingEffect, setLogged } from "../utils.js";
+import { criaSignupCard } from "./signup.js";
+addDefaultItems();
+setMethodsDB()
+
+export const white_side = document.getElementById("branco");
 const login_ref = document.getElementById("login-ref");
-const loginCard = document.getElementById("login");
+export const loginCard = document.getElementById("login");
 
 const email_login = document.getElementById("email_login");
 const pass_login = document.getElementById("pass_login");
@@ -39,13 +45,10 @@ login_ref.addEventListener('click', () => {
 
 const btn_acess = document.getElementById('btn_acess');
 btn_acess.addEventListener('click', (e) => {
-    let users = localStorage.get("users");
+    let users = db.get("users");
     users.forEach(user => {
-        console.log(user);
         if(user.email == email_login.value) {
-            console.log(user.email + " confere!");
             if(user.pass == pass_login.value) {
-                console.log(user.pass + " confere!");
                 setLogged(user)
                 loadingEffect(e.target, () => {
                     window.location.href = "view/main.html";
@@ -54,5 +57,3 @@ btn_acess.addEventListener('click', (e) => {
         }
     });
 });
-
-localStorage.clear();

@@ -77,16 +77,16 @@ const setMethodsDB = () => {
 setMethodsDB();
 // criando objetos / padroes de tabelas sao criados quando nao existe nem uma tabela com a chave
 
-const newObject = (object) => {
+export const newObject = (object) => {
     return object;
 }
 
-const FK_newList = (list, id) => {
+export const FK_newList = (list, id) => {
     let obList = { fkUserId: id, arr: list };
     return obList;
 }
 
-const FK_newObject = (object, idFKName, id) => {
+export const FK_newObject = (object, idFKName, id) => {
     object[idFKName] = id;
     return object;
 };

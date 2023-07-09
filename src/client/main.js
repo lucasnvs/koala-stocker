@@ -1,5 +1,5 @@
 import { componentCreation } from "./componentCreation.js";
-import {db , addDefaultItems, setMethodsDB } from "../database/db.js";
+import {db, setMethodsDB, FK_newList, FK_newObject } from "../database/db.js";
 
 setMethodsDB();
 

@@ -160,6 +160,7 @@ const groceryCard = ( { arr: object } ) => {
     console.log("renderizando");
     return div;
 }
+
 export const componentCreation = {
     itemAddCard: itemAddCard,
     groceryCard: groceryCard

@@ -94,9 +94,10 @@ export const FK_newObject = (object, idFKName, id) => {
 var db = localStorage;
 
 async function addDefaultItems() {
-    // localStorage.removeItem("users");
-    // localStorage.removeItem("grocery"); // desenvolvimento somente
-    // localStorage.removeItem("item"); // para nao dar sobreposição
+    let aux = JSON.parse(localStorage.getItem("users"));
+    if(!aux) {
+        console.log(JSON.parse(localStorage.getItem("users")))
+    }
     
     var user0 = {
         name: "Matheus",

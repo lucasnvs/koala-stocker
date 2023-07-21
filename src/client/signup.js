@@ -1,5 +1,5 @@
-import { loadingEffect } from "../utils.js";
-import { db } from "../database/db.js";
+import { checkEmailFormat, checkPasswordFormat, loadingEffect } from "../utils.js";
+import { db, newObject } from "../database/db.js";
 import { loginCard, white_side } from "./login.js";
 
 export function criaSignupCard() {

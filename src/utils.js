@@ -20,14 +20,14 @@ export const loadingEffect = (local, func) => {
   loader.style.height = "30px";
   loader.style.animation = "spin 400ms linear infinite";
 
-  let auxText = local.children[0];
+  let auxText = local.children[0] || local.textContent;
   local.textContent = "";
 
   local.append(loader);
   setTimeout(() => {
     func();
     loader.remove();
-    local.appendChild(auxText);
+    local.insertAdjacentHTML("beforeend", auxText);
   }, 800);
 }
 
@@ -37,15 +37,15 @@ export function checkEmailFormat(email) { // expressão regular de formato de em
 }
 
 export function checkPasswordFormat(password) {
-  let number = ["0","1","2","3","4","5","6","7","8","9"];
+  let number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   let finalListABC = [];
   let abcList = "abcdefghihklmnopqrstuv";
   finalListABC.push(...abcList);
   finalListABC.push(...abcList.toUpperCase());
-  if(password.length < 5) return false;
+  if (password.length < 5) return false;
   let char = password.split("");
-  if(!checkInclusionOne(char, finalListABC)) return false;
-  if(!checkInclusionOne(char, number)) return false;
+  if (!checkInclusionOne(char, finalListABC)) return false;
+  if (!checkInclusionOne(char, number)) return false;
 
   return true;
 }

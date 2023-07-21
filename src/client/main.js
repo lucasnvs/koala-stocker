@@ -1,5 +1,6 @@
 import { componentCreation } from "./componentCreation.js";
 import {db, setMethodsDB, FK_newList, FK_newObject } from "../database/db.js";
+import { loadingEffect } from "../utils.js";
 
 setMethodsDB();
 
@@ -8,7 +9,7 @@ const groceryList = document.getElementById('grocery-list');
 const card_grocery = document.getElementById("card-grocery");
 const card_newItem = document.getElementById("product-register");
 
-const loggedUser = JSON.parse(db.getItem("loggedUser"));
+export const loggedUser = JSON.parse(db.getItem("loggedUser"));
 
 export var itensGroceryList = [];
 

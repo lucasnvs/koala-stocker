@@ -1,4 +1,5 @@
-import { itensGroceryList, renderGroceryList, renderItemGroceryCard, renderListGroceryCard, renderStock } from "./main.js";
+import { db } from "../database/db.js";
+import { itensGroceryList, loggedUser, renderGroceryList, renderItemGroceryCard, renderListGroceryCard, renderStock } from "./main.js";
 
 const card = (title, child = "") => {
     let cardFrame = document.createElement('div');

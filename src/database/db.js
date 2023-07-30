@@ -1,30 +1,4 @@
-const comprasList =
-    [
-        {
-            "name": "Arroz Integral",
-            "typeQuantity": "KG",
-            "quantity": 2.3,
-            "img": "../assets/imgs/arroz_namorado.jpg"
-        },
-        {
-            "name": "Ovos Brancos",
-            "typeQuantity": "UNIT",
-            "quantity": 12,
-            "img": "../assets/imgs/ovos.jpg"
-        },
-        {
-            "name": "Leite Integral 1L",
-            "typeQuantity": "UNIT",
-            "quantity": 3,
-            "img": "../assets/imgs/leite.png"
-        },
-        {
-            "name": "Massa Penne",
-            "typeQuantity": "KG",
-            "quantity": 1.5,
-            "img": "../assets/imgs/penne.png"
-        }
-    ]
+const comprasList = await fetch('../src/database/ItemsDefault.json').then(res => res.json());
 
 const setMethodsDB = () => {
     Storage.prototype.get = function (key) {
@@ -108,8 +82,9 @@ async function addDefaultItems() {
 
     if(db.getItem("users") == null) {
         db.set('users', newObject(user0))
-        comprasList.forEach(product => {
+        await comprasList.forEach(product => {
             localStorage.set("item", FK_newObject(product, "fkUserId", 1))
+            console.log("Setando")
         });
     }
 }

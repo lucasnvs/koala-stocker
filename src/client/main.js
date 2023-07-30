@@ -1,6 +1,7 @@
 import { componentCreation } from "./componentCreation.js";
 import {db, setMethodsDB, FK_newList, FK_newObject } from "../database/db.js";
 import { loadingEffect } from "../utils.js";
+import { errMSG, sucessMSG } from "./dialog.js";
 
 setMethodsDB();
 
@@ -13,7 +14,9 @@ export const loggedUser = JSON.parse(db.getItem("loggedUser"));
 
 export var itensGroceryList = [];
 
-document.getElementById("user-name").innerHTML = loggedUser.name;
+let username = document.getElementById("user-name");
+if(username) username.textContent = loggedUser.name;
+
 // renders
 
 //pre rendering 
@@ -27,7 +30,7 @@ export async function renderStock(items) {
         items = await db.getWhereUserId("item", loggedUser.id);
         if(!items) return;
     };
-    console.log(items)
+
     list.innerHTML = "";
         items.forEach(item => {
             var text = `
@@ -48,6 +51,7 @@ export async function renderStock(items) {
 export async function renderGroceryList() {
     let items = await db.getWhereUserId("grocery", loggedUser.id);
     if(!items) return
+    groceryList.textContent = "";
     items.forEach( (item) => {
         let comp = componentCreation.groceryCard(item);
         groceryList.appendChild(comp);
@@ -111,18 +115,25 @@ document.getElementById("close-card-grocery").addEventListener("click", () => {
 });
 
 document.getElementById("create-grocery-list").addEventListener("click", () => {
-    if(itensGroceryList.length == 0) return;
+    if(itensGroceryList.length == 0) {
+        errMSG("Não é possível salvar uma lista de compras vazia!");
+        return
+    };
     db.set("grocery", FK_newList(itensGroceryList, loggedUser.id));
     itensGroceryList = [];
     loadingEffect(document.getElementById("create-grocery-list"), () => {
         card_grocery.classList.toggle("hidden");
         renderGroceryList()
         renderListGroceryCard();
+        sucessMSG("A sua lista de compras foi salva com sucesso!");
     })
 })
 
 document.getElementById("save-grocery-list").addEventListener("click", () => {
-    if(itensGroceryList.length == 0) return;
+    if(itensGroceryList.length == 0) {
+        errMSG("Não é possível salvar uma lista de compras vazia!");
+        return
+    }
 
     itensGroceryList.forEach( item => {
         db.UpdateGroceryWhereId( loggedUser.id, item );
@@ -132,6 +143,7 @@ document.getElementById("save-grocery-list").addEventListener("click", () => {
         card_grocery.classList.toggle("hidden");
         renderStock();
         renderListGroceryCard();
+        sucessMSG("Os itens da sua compra foram somados ao estoque!");
     })
 })
 
@@ -176,6 +188,7 @@ document.getElementById("btn-product-submit").addEventListener("click", () => {
             card_newItem.classList.toggle("hidden");
             renderStock();
             renderItemGroceryCard();
+            sucessMSG("Item criado com sucesso!")
         }
     }
 

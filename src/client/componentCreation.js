@@ -1,34 +1,6 @@
 import { db } from "../database/db.js";
+import { errMSG, sucessMSG } from "./dialog.js";
 import { itensGroceryList, loggedUser, renderGroceryList, renderItemGroceryCard, renderListGroceryCard, renderStock } from "./main.js";
-
-const card = (title, child = "") => {
-    let cardFrame = document.createElement('div');
-    cardFrame.className = "card-frame";
-
-    let card = document.createElement('div');
-    card.className = "card";
-
-    let top_bar = document.createElement('div');
-    top_bar.className = "top-bar";
-
-    let cardTitle = document.createElement('h2');
-    cardTitle.textContent = title;
-
-    let btnClose = document.createElement('button');
-    btnClose.className = "btn-close";
-
-    btnClose.addEventListener('click', () => {
-        cardFrame.remove();
-    });
-
-    top_bar.appendChild(cardTitle);
-    top_bar.appendChild(btnClose);
-    card.appendChild(top_bar);
-    card.appendChild(child);
-    cardFrame.appendChild(card);
-
-    return cardFrame;
-}
 
 const itemAddCard = (object) => {
     let body = document.createElement("div");
@@ -150,6 +122,7 @@ const groceryCard = ( { arr: object } ) => {
         object.forEach( item => {
             db.UpdateGroceryWhereId( loggedUser.id, item );
         })
+        sucessMSG(`Os ${object.length} itens da lista de compras foram adicionados ao estoque em suas respectivas quantidades!`);
         renderStock();
     });
 
@@ -158,11 +131,13 @@ const groceryCard = ( { arr: object } ) => {
     div.appendChild(ul);
     div.appendChild(btn);
 
-    console.log("renderizando");
     return div;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////
+// AVISO
+
 export const componentCreation = {
-    itemAddCard: itemAddCard,
-    groceryCard: groceryCard
+    itemAddCard,
+    groceryCard,
 }

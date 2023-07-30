@@ -74,7 +74,7 @@ const setMethodsDB = () => {
         localStorage.setItem("item", JSON.stringify(object));
     }
 }
-setMethodsDB();
+
 // criando objetos / padroes de tabelas sao criados quando nao existe nem uma tabela com a chave
 
 export const newObject = (object) => {
@@ -116,3 +116,7 @@ async function addDefaultItems() {
 
 
 export { db, addDefaultItems, setMethodsDB };
+
+// ()(
+
+//   )

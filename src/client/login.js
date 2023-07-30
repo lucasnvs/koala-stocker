@@ -1,8 +1,10 @@
 import { addDefaultItems, db, setMethodsDB } from "../database/db.js";
 import { loadingEffect, setLogged } from "../utils.js";
+import { sucessMSG } from "./dialog.js";
 import { criaSignupCard } from "./signup.js";
-addDefaultItems();
+
 setMethodsDB()
+addDefaultItems();
 
 export const white_side = document.getElementById("branco");
 const login_ref = document.getElementById("login-ref");
@@ -49,7 +51,8 @@ btn_acess.addEventListener('click', (e) => {
     users.forEach(user => {
         if(user.email == email_login.value) {
             if(user.pass == pass_login.value) {
-                setLogged(user)
+                setLogged(user);
+                sucessMSG("Logado com sucesso!");
                 loadingEffect(e.target, () => {
                     window.location.href = "view/main.html";
                 });
@@ -57,3 +60,10 @@ btn_acess.addEventListener('click', (e) => {
         }
     });
 });
+
+// dev
+
+// setLogged(db.get("users")[0])
+// loadingEffect(btn_acess, () => {
+//     window.location.href = "view/main.html";
+// });

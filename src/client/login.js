@@ -1,6 +1,6 @@
 import { addDefaultItems, db, setMethodsDB } from "../database/db.js";
 import { loadingEffect, setLogged } from "../utils.js";
-import { sucessMSG } from "./dialog.js";
+import { errMSG, sucessMSG } from "./dialog.js";
 import { criaSignupCard } from "./signup.js";
 
 setMethodsDB()
@@ -56,7 +56,11 @@ btn_acess.addEventListener('click', (e) => {
                 loadingEffect(e.target, () => {
                     window.location.href = "view/main.html";
                 });
+            } else {
+                errMSG("Senha incompatível!");
             }
+        } else {
+            errMSG("Email não encontrado!");
         }
     });
 });

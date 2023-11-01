@@ -20,7 +20,7 @@ export const loadingEffect = (local, func) => {
   loader.style.height = "30px";
   loader.style.animation = "spin 400ms linear infinite";
 
-  let auxText = local.outerHTML || local.textContent;
+  let auxText = local.innerHTML || local.textContent;
   local.textContent = "";
 
   local.append(loader);

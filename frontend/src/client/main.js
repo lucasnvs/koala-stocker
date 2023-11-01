@@ -8,79 +8,69 @@ setMethodsDB();
 const list = document.getElementById('stock-list');
 const groceryList = document.getElementById('grocery-list');
 const card_grocery = document.getElementById("card-grocery");
+const card_grocery_list = document.getElementById("item-table");
+const card_grocery_list_item = document.getElementById("item-list");
 const card_newItem = document.getElementById("product-register");
 
-export const loggedUser = JSON.parse(db.getItem("loggedUser"));
 
+export var loggedUser = JSON.parse(db.getItem("loggedUser"));
+loggedUser = {id: 1}
 export var itensGroceryList = [];
 
 let username = document.getElementById("user-name");
-if(username) username.textContent = loggedUser.name;
+if(loggedUser) username.textContent = loggedUser.name;
+
 
 // renders
+async function render(paramDATA, element, build) {
+    let values = paramDATA;
+    if(typeof paramDATA === "string") {
+        values = await db.getWhereUserId(paramDATA, loggedUser.id);
+    }
+    
+    if (!values) return;
+
+    element.innerHTML = "";
+    values.forEach( item => {
+        build(item);
+    })
+}
+
+export const renderStock = (param = "item") => render(param, list, (item) => {
+    var text = `
+    <li>
+        <div class="item_stock">
+        <div class="img-container">
+            <img src=${item.img}>
+        </div>
+            <h3>${item.name}</h3>
+            <p>Quantidade</p>
+            <p><span>${item.quantity} ${item.typeQuantity}</span></p>
+        </div>                 
+    </li>`
+    list.innerHTML += text;
+})
+
+export const renderGroceryList = (param = "grocery") => render(param, groceryList, (item) => {
+    let comp = componentCreation.groceryCard(item);
+    groceryList.appendChild(comp);
+});
+
+export const renderItemGroceryCard = (param = "item") => render(param, card_grocery_list_item, (item) => {
+    let li = document.createElement("li");
+    let comp = componentCreation.itemAddCard(item);
+    li.appendChild(comp)
+    card_grocery_list_item.appendChild(li);
+})
+
+export const renderListGroceryCard = () => render(itensGroceryList, card_grocery_list, (item) => {
+    card_grocery_list.innerHTML += `<tr><td>${item.name}</td><td>${item.value} ${item.typeQuantity}</td></tr>`
+})
 
 //pre rendering 
 renderStock();
 renderGroceryList();
 renderItemGroceryCard();
-
-export async function renderStock(items) {
-
-    if (!items) {
-        items = await db.getWhereUserId("item", loggedUser.id);
-        if(!items) return;
-    };
-
-    list.innerHTML = "";
-        items.forEach(item => {
-            var text = `
-                <li>
-                    <div class="item_stock">
-                    <div class="img-container">
-                        <img src=${item.img}>
-                    </div>
-                        <h3>${item.name}</h3>
-                        <p>Quantidade</p>
-                        <p><span>${item.quantity} ${item.typeQuantity}</span></p>
-                    </div>                 
-                </li>`
-            list.innerHTML += text;
-        })
-}
-
-export async function renderGroceryList() {
-    let items = await db.getWhereUserId("grocery", loggedUser.id);
-    if(!items) return
-    groceryList.textContent = "";
-    items.forEach( (item) => {
-        let comp = componentCreation.groceryCard(item);
-        groceryList.appendChild(comp);
-    })
-}
-
-export async function renderItemGroceryCard(items) {
-    let list = document.getElementById("item-list");
-    if (!items) {
-        items = await db.getWhereUserId("item", loggedUser.id);
-        if(!items) return;
-    };
-
-    list.textContent = "";
-    items.forEach( item => {
-        let li = document.createElement("li");
-        let comp = componentCreation.itemAddCard(item);
-        li.appendChild(comp)
-        list.appendChild(li);
-    })
-}
-
-export function renderListGroceryCard() {
-    let tbody = document.getElementById("item-table");
-    tbody.innerHTML = "";
-    itensGroceryList.forEach( item => {
-        tbody.innerHTML += `<tr><td>${item.name}</td><td>${item.value} ${item.typeQuantity}</td></tr>`
-    })
-}
 
 // search in stock
 const searchStock = document.getElementById('searchInStock');

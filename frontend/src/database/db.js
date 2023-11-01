@@ -1,4 +1,4 @@
-const comprasList = await fetch('../src/database/ItemsDefault.json').then(res => res.json());
+const comprasList = await fetch('http://localhost:8080/frontend/src/database/ItemsDefault.json').then(res => res.json());
 
 const setMethodsDB = () => {
     Storage.prototype.get = function (key) {

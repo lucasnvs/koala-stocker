@@ -14,7 +14,6 @@ const card_newItem = document.getElementById("product-register");
 
 
 export var loggedUser = JSON.parse(db.getItem("loggedUser"));
-loggedUser = {id: 1}
 export var itensGroceryList = [];
 
 let username = document.getElementById("user-name");

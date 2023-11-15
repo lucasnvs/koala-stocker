@@ -21,25 +21,25 @@
         <h1 class="title">Seu gerenciador de estoque de comida, para você nunca mais se esquecer de suas compras.</h1>
     </div>
     <div id="branco">
-        <div id="login">
-            <h1 class="title">Log-in</h1>
-            <div class="input-container">
-                <input type="text" required id="email_login" name="email_login">
-                <label for="email_login">Email</label>
-            </div>
-            <div class="input-container">
-                <input type="password" required id="pass_login" name="pass_login">
-                <label for="pass_login">Senha</label>
-            </div>
-            <div class="remember-me">
-                <input type="checkbox" id="remember">
-                <label for="remember">Lembrar de mim</label>
-            </div>
-            <button id="btn_acess" class="btn all">Acessar</button>
-            <h5><a href="#">Esqueceu a senha?</a></h5>
-            <span>ou</span>
-            <h5 class="regist">Sem conta? <a id="login-ref">Registre-se</a></h5>
-        </div>
+            <form id="login" method="post">
+                <h1 class="title">Log-in</h1>
+                <div class="input-container">
+                    <input type="text" required id="email_login" name="email_login">
+                    <label for="email_login">Email</label>
+                </div>
+                <div class="input-container">
+                    <input type="password" required id="pass_login" name="pass_login">
+                    <label for="pass_login">Senha</label>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Lembrar de mim</label>
+                </div>
+                <input type="submit" id="btn_acess" class="btn all" value="Acessar">
+                <h5><a href="#">Esqueceu a senha?</a></h5>
+                <span>ou</span>
+                <h5 class="regist">Sem conta? <a id="login-ref">Registre-se</a></h5>
+            </form>
     </div>
 </body>
 </html>

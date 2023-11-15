@@ -1,7 +1,3 @@
-export function setLogged(user) {
-  localStorage.setItem("loggedUser", JSON.stringify(user))
-}
-
 const checkInclusionOne = (arr1, arr2) => {
   for (let i = 0; i < arr2.length; i++) {
     if (arr1.includes(arr2[i])) {
@@ -42,10 +38,39 @@ export function checkPasswordFormat(password) {
   let abcList = "abcdefghihklmnopqrstuv";
   finalListABC.push(...abcList);
   finalListABC.push(...abcList.toUpperCase());
-  if (password.length < 5) return false;
+  if (password.length < 5) return false; // password maior que 5caracteres
   let char = password.split("");
-  if (!checkInclusionOne(char, finalListABC)) return false;
-  if (!checkInclusionOne(char, number)) return false;
+  if (!checkInclusionOne(char, finalListABC)) return false; // tem q ter caracteres
+  if (!checkInclusionOne(char, number)) return false; // tem q ter numeros
 
   return true;
+}
+
+export function setCookie(key, value, expire = '1d') {
+  let timeNumber = parseInt(expire.slice(0, -1));
+  let timeUnit = expire.slice(-1);
+  let unitMultiplier = { d: 24 * 60 * 60 * 1000, h: 60 * 60 * 1000, m: 60 * 1000, s: 1000 };
+  let time = timeNumber * unitMultiplier[timeUnit];
+  time = Date.now() + time;
+  value = JSON.stringify(value);
+  document.cookie = `${key}=${value}; expires=${new Date(time).toUTCString()}; path=/`;
+}
+
+export function getCookies(key) {
+  const cookies = document.cookie.split('; ');
+  const ckObj = {};
+  console.log(cookies)
+  for (let i in cookies) {
+    const [k, v] = cookies[i].split('=');
+    try{
+      ckObj[k] = JSON.parse(v);
+    } catch(e) {
+      ckObj[k] = v;
+    }
+  }
+
+  if (key) {
+    return ckObj[key];
+  }
+  return ckObj;
 }

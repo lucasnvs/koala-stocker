@@ -5,9 +5,10 @@ include "../../connection.php";
 header("Content-Type: application/json");
 
 $response = array();
+$response["status"] = "error";
 
 try {
-    $rs = $conn->prepare("SELECT id_user, nome_completo, email FROM users;");
+    $rs = $conn->prepare("SELECT * FROM produtos;");
     $rs->execute();
     $response["status"] = "sucess";
 

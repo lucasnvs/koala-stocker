@@ -3,8 +3,8 @@
 $host = "mysql"; 
 $user = "root";
 $port = "3306";  
-$password = getenv("MYSQL_PASSWORD");
-$database = getenv("MYSQL_DATABASE");
+$password = "db_koala";
+$database = "koala";
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

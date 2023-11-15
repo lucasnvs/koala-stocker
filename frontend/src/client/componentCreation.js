@@ -1,19 +1,20 @@
 import { db } from "../database/db.js";
 import { errMSG, sucessMSG } from "./dialog.js";
-import { itensGroceryList, loggedUser, renderGroceryList, renderItemGroceryCard, renderListGroceryCard, renderStock } from "./main.js";
+// import { itensGroceryList, loggedUser, renderGroceryList, renderItemGroceryCard, renderListGroceryCard, renderStock } from "./main.js";
+import { itensGroceryList } from "./main.js";
 
 const itemAddCard = (object) => {
     let body = document.createElement("div");
     body.classList = "card item";
 
     let img = document.createElement("img");
-    img.src = object.img;
+    img.src = object.image_path;
 
     let container = document.createElement("div");
     container.className = "le"
 
     let p = document.createElement("p");
-    p.textContent = object.name;
+    p.textContent = object.nome;
     let submit = document.createElement("button");
     submit.className = "btn";
     submit.textContent = "Adicionar";
@@ -41,23 +42,23 @@ const itemAddCard = (object) => {
     let total = 0;
 
     const renderTotal = () => {
-        quantSpan.textContent = `${total} ${object.typeQuantity}`;
+        quantSpan.textContent = `${total} ${object["tipo_quantidade"]}`;
     }
     addBtn.addEventListener("click", () => {
-        if (object.typeQuantity == "KG") {
+        if (object["tipo_quantidade"] == "KG") {
             total += .5;
         }
-        if (object.typeQuantity == "UNIT") {
+        if (object["tipo_quantidade"] == "UNIT") {
             total += 1;
         }
         renderTotal();
     })
     unaddBtn.addEventListener("click", () => {
         if (total <= 0) return;
-        if (object.typeQuantity == "KG") {
+        if (object["tipo_quantidade"] == "KG") {
             total -= .5;
         }
-        if (object.typeQuantity == "UNIT") {
+        if (object["tipo_quantidade"] == "UNIT") {
             total -= 1;
         }
         renderTotal();
@@ -70,7 +71,7 @@ const itemAddCard = (object) => {
             id: object.id,
             name: object.name,
             value: total, // valor a ser adicionado
-            typeQuantity: object.typeQuantity
+            typeQuantity: object["tipo_quantidade"]
         }
         itensGroceryList.push(productObj);
         renderListGroceryCard();

@@ -1,5 +1,5 @@
 import { addDefaultItems, db, setMethodsDB } from "../database/db.js";
-import { loadingEffect, setLogged } from "../utils.js";
+import { loadingEffect } from "../utils.js";
 import { errMSG, sucessMSG } from "./dialog.js";
 import { criaSignupCard } from "./signup.js";
 
@@ -45,29 +45,20 @@ login_ref.addEventListener('click', () => {
 ///////////////////////////////////////////////////////////////////
 // Login Check
 
-const btn_acess = document.getElementById('btn_acess');
-btn_acess.addEventListener('click', (e) => {
-    let users = db.get("users");
-    users.forEach(user => {
-        if(user.email == email_login.value) {
-            if(user.pass == pass_login.value) {
-                setLogged(user);
-                sucessMSG("Logado com sucesso!");
-                loadingEffect(e.target, () => {
-                    window.location.href = "view/main.html";
-                });
-            } else {
-                errMSG("Senha incompatível!");
-            }
-        } else {
-            errMSG("Email não encontrado!");
+const formLogin = document.getElementById('login');
+formLogin.addEventListener('submit', (e) => {
+    e.preventDefault();
+    fetch("../../../backend/login.php", {
+        method: "POST",
+        body: new FormData(formLogin)
+    }).then(res => res.json()).then(res => {
+        if(res.status != 200) { // status do retorno
+            errMSG(res.message); // message do retorno
+            return
         }
-    });
+        sucessMSG(res.message);
+        loadingEffect(e.target, () => {
+            window.location.href = "frontend/view/main.php";
+        });
+    })
 });
-
-// dev
-
-// setLogged(db.get("users")[0])
-// loadingEffect(btn_acess, () => {
-//     window.location.href = "view/main.html";
-// });

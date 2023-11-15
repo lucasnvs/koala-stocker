@@ -1,6 +1,7 @@
 import { checkEmailFormat, checkPasswordFormat, loadingEffect } from "../utils.js";
 import { db, newObject } from "../database/db.js";
 import { loginCard, white_side } from "./login.js";
+import { errMSG } from "./dialog.js";
 
 export function criaSignupCard() {
     var divSignup = document.createElement('div');
@@ -117,20 +118,32 @@ export function criaSignupCard() {
     divSignup.appendChild(h5Regist);
     
     btnSignup.addEventListener("click", () => {
-        let register = {
-            name: inputName.value,
-            undername: inputUndername.value,
+        var register = {
+            fullname: inputName.value+" "+inputUndername.value,
             email: inputEmail.value,
-            pass: inputPass.value
+            password: inputPass.value
         }
     
-        if(checkEmailFormat(register.email) && checkPasswordFormat(register.pass)) {
-            if(db.set('users', newObject(register))) {
-                loadingEffect(btn_signup, () => {
+        const form = new FormData;
+        for(let key of Object.keys(register)) {
+            form.append(key, register[key]);
+        }
+
+        if(checkEmailFormat(register.email) && checkPasswordFormat(register.password)) {
+            fetch("../../../backend/api/users/post-users.php", {
+                method: "POST",
+                body: form
+            }).then(res => res.json()).then(res => {
+                if(res.status != 200) {
+                    errMSG(res.message);
+                    console.log(res)
+                    return;
+                }
+                loadingEffect(btnSignup, () => {
                     divSignup.remove();
                     white_side.appendChild(loginCard);
                 });
-            }
+            })
         }
     });
 

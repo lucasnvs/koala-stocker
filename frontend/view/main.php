@@ -1,3 +1,9 @@
+<?php
+session_start(); 
+if(!isset($_SESSION["Authorization"])) {
+    header("Location: ../../../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -18,8 +24,8 @@
 
         <div class="user">
             <h3><span id="user-name">Usuário</span><img src="../assets/icons/caret-down.svg"></h3>
-            <ul>
-                <li><a href="../../index.html">Desconectar</a></li>
+            <ul id="top-menu-options">
+                <li><a id="disconnect">Desconectar</a></li>
             </ul>
         </div>
     </header>
@@ -80,24 +86,26 @@
             </div>
         </div>
     </div>
-    <div id="product-register" class="hidden card-frame">
+    <div id="product-register" class="hidden card-frame"> <!--  add class hidden  -->
         <div class="card appear">
             <div class="top-bar">
                 <h2>Cadastrar alimento</h2><button id="close-card-product" class="btn-close"></button>
             </div>
-            <div class="product-register">
-                <input id="title-item" type="text" placeholder="Nome do Alimento...">
+            <form id="form-product-register" class="product-register">
+                <input id="title-item" type="text" name="name" placeholder="Nome do Alimento...">
                 <h4>Qual medida você deseja usar para este alimento?</h4>
                 <div class="radio-container">
-                    <input type="radio" id="radioUnit" value="UNIT" name="radio-range">
+                    <input type="radio" id="radioUnit" value="UNIDADE" name="typeQuantity">
                     <label for="radioUnit">Unidade</label>
-                    <input type="radio" id="radioKg" value="KG" name="radio-range">
+                    <input type="radio" id="radioKg" value="KILOGRAMA" name="typeQuantity">
                     <label for="radioKg">Kilogramas(Kg)</label>
+                    <input type="radio" id="radioLt" value="LITRO" name="typeQuantity">
+                    <label for="radioLt">Litros</label>
                 </div>
 
-                <input id="file-input" type="file">
-                <button id="btn-product-submit" class="btn">Cadastrar</button>
-            </div>
+                <input id="file-input" type="file" name="file-upload">
+                <input id="btn-product-submit" class="btn" type="submit" value="Cadastrar">
+            </form>
         </div>
     </div>
 

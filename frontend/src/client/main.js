@@ -1,7 +1,7 @@
 import { componentCreation } from "./componentCreation.js";
-// import {db, setMethodsDB, FK_newList, FK_newObject } from "../database/db.js";
-// import { loadingEffect } from "../utils.js";
-// import { errMSG, sucessMSG } from "./dialog.js";
+import { ListaUnitaria } from "../ListaUnitaria.js";
+import { loadingEffect } from "../utils.js";
+import { errMSG, sucessMSG } from "./dialog.js";
 
 
 const BACKEND_PATH = "../../../backend/";
@@ -22,7 +22,7 @@ document.getElementById("disconnect").addEventListener("click", () => {
 
 // export var loggedUser = JSON.parse(db.getItem("loggedUser"));
 // loggedUser = {id: 1, name: "lucas"};
-export var itensGroceryList = [];
+export const itensGroceryList = new ListaUnitaria("id_produto");
 
 // let username = document.getElementById("user-name");
 // if(loggedUser) username.textContent = loggedUser.name;
@@ -32,6 +32,7 @@ export var itensGroceryList = [];
 async function render(paramDATA, element, build) {
     let values = paramDATA;
     if(typeof paramDATA === "string") {
+        console.log(`Requisição em ${paramDATA}`);
         values = await fetch(paramDATA).then(res => res.json())
         values = values.body;
     }
@@ -44,16 +45,16 @@ async function render(paramDATA, element, build) {
     })
 }
 
-export const renderStock = (param = "item") => render(param, list, (item) => {
+export const renderStock = (param = BACKEND_PATH+"api/estoque/get-estoque.php") => render(param, list, (item) => {
     var text = `
     <li>
         <div class="item_stock">
         <div class="img-container">
-            <img src=${item.img}>
+            <img src=${item.image_path}>
         </div>
-            <h3>${item.name}</h3>
+            <h3>${item.nome}</h3>
             <p>Quantidade</p>
-            <p><span>${item.quantity} ${item.typeQuantity}</span></p>
+            <p><span>${item.quantidade} ${item.tipo_quantidade}</span></p>
         </div>                 
     </li>`
     list.innerHTML += text;
@@ -71,14 +72,15 @@ export const renderItemGroceryCard = (param = BACKEND_PATH+"api/produtos/get-pro
     card_grocery_list_item.appendChild(li);
 })
 
-// export const renderListGroceryCard = () => render(itensGroceryList, card_grocery_list, (item) => {
-//     card_grocery_list.innerHTML += `<tr><td>${item.name}</td><td>${item.value} ${item.typeQuantity}</td></tr>`
-// })
+export const renderListGroceryCard = () => render(itensGroceryList.getValues(), card_grocery_list, (item) => {
+    card_grocery_list.innerHTML += `<tr><td>${item.nome}</td><td>${item.quantidade} ${item.tipo_quantidade}</td></tr>`
+})
 
 // //pre rendering 
-// renderStock();
-// renderGroceryList();
+renderStock();
 renderItemGroceryCard();
+
+// renderGroceryList();
 
 // // search in stock
 // const searchStock = document.getElementById('searchInStock');
@@ -127,25 +129,36 @@ document.getElementById("close-card-grocery").addEventListener("click", () => {
 //     })
 // })
 
-// document.getElementById("save-grocery-list").addEventListener("click", () => {
-//     if(itensGroceryList.length == 0) {
-//         errMSG("Não é possível salvar uma lista de compras vazia!");
-//         return
-//     }
+document.getElementById("save-grocery-list").addEventListener("click", () => {
+    if(itensGroceryList.getSize() == 0) {
+        errMSG("Não é possível salvar uma lista de compras vazia!");
+        return;
+    }
 
-//     itensGroceryList.forEach( item => {
-//         db.UpdateGroceryWhereId( loggedUser.id, item );
-//     })
-//     itensGroceryList = [];
-//     loadingEffect(document.getElementById("save-grocery-list"), () => {
-//         card_grocery.classList.toggle("hidden");
-//         renderStock();
-//         renderListGroceryCard();
-//         sucessMSG("Os itens da sua compra foram somados ao estoque!");
-//     })
-// })
+    console.log(itensGroceryList.getValues())
+    
+    let formData = new FormData();
+    formData.append('data', JSON.stringify(itensGroceryList.getValues()));
 
-// ///// card 
+    fetch(BACKEND_PATH+"api/produtos/post-insert-compra.php", {
+        method: "POST",
+        body: formData
+    }).then(async res => {
+        let data = await res.json();
+        console.log(data)
+    })
+
+    itensGroceryList.clear();
+    
+    loadingEffect(document.getElementById("save-grocery-list"), () => {
+        card_grocery.classList.toggle("hidden");
+        renderStock();
+        renderListGroceryCard();
+        sucessMSG("Os itens da sua compra foram somados ao estoque!");
+    })
+})
+
+// ///// card new item
 document.getElementById("add-item").addEventListener("click", () => {
     card_newItem.classList.toggle("hidden");
 });
@@ -164,11 +177,13 @@ formProductRegister.addEventListener("submit", (e) => {
         let data = await res.json();
         if (data.status == "sucess") {
             card_newItem.classList.toggle("hidden");
+            document.getElementById("title-item").value = "";
+            document.querySelector("input[name='typeQuantity']").checked = "";
+            document.getElementById("file-input").value = "";
+
             renderStock();
             renderItemGroceryCard();
             sucessMSG("Item criado com sucesso!");
         }
     })
-
-}
-)
+})

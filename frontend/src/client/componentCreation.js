@@ -1,7 +1,6 @@
-import { db } from "../database/db.js";
 import { errMSG, sucessMSG } from "./dialog.js";
 // import { itensGroceryList, loggedUser, renderGroceryList, renderItemGroceryCard, renderListGroceryCard, renderStock } from "./main.js";
-import { itensGroceryList } from "./main.js";
+import { itensGroceryList, renderListGroceryCard } from "./main.js";
 
 const itemAddCard = (object) => {
     let body = document.createElement("div");
@@ -42,38 +41,56 @@ const itemAddCard = (object) => {
     let total = 0;
 
     const renderTotal = () => {
-        quantSpan.textContent = `${total} ${object["tipo_quantidade"]}`;
+        let minPlaceholder;
+        switch(object["tipo_quantidade"]) {
+            case "KILOGRAMA": minPlaceholder = "KG";
+                break;
+            case "UNIDADE": minPlaceholder = "UN";
+                break;
+            case "LITRO": minPlaceholder = "LT";
+                break;
+        }
+        quantSpan.textContent = `${total} ${minPlaceholder}`;
     }
+    renderTotal();
+
+
     addBtn.addEventListener("click", () => {
-        if (object["tipo_quantidade"] == "KG") {
-            total += .5;
+        switch(object["tipo_quantidade"]) {
+            case "KILOGRAMA": total += .5;
+                break;
+            case "UNIDADE": total += 1;
+                break;
+            case "LITRO": total += 1;
+                break;
         }
-        if (object["tipo_quantidade"] == "UNIT") {
-            total += 1;
-        }
+
         renderTotal();
     })
+
     unaddBtn.addEventListener("click", () => {
         if (total <= 0) return;
-        if (object["tipo_quantidade"] == "KG") {
-            total -= .5;
+        switch(object["tipo_quantidade"]) {
+            case "KILOGRAMA": total -= .5;
+                break;
+            case "UNIDADE": total -= 1;
+                break;
+            case "LITRO": total -= 1;
+                break;
         }
-        if (object["tipo_quantidade"] == "UNIT") {
-            total -= 1;
-        }
+
         renderTotal();
     })
-    renderTotal();
 
     submit.addEventListener("click", () => {
         if (total == 0) return
         let productObj = {
-            id: object.id,
-            name: object.name,
-            value: total, // valor a ser adicionado
-            typeQuantity: object["tipo_quantidade"]
+            id_produto: object.id_produto,
+            nome: object.nome,
+            quantidade: total, // valor a ser adicionado
+            tipo_quantidade: object["tipo_quantidade"]
         }
-        itensGroceryList.push(productObj);
+        itensGroceryList.addValue(productObj);
         renderListGroceryCard();
         total = 0;
         renderTotal();

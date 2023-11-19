@@ -17,16 +17,12 @@
 
 
     if(password_verify($password, $queryResult["senha"])) {
-        // gerar hash de auth;
-        $authHash = "dafsdfrgg";
         session_start();
         $_SESSION["user_id"] = $queryResult["id_user"];
         $_SESSION["user_role"] = $queryResult["user_role"];
-        $_SESSION["Authorization"] = $authHash;
 
         $response["status"] = 200;
         $response["message"] = "Logado com sucesso!";
     }
     
     echo json_encode($response);
-    // escrever em csv as auth (id usuario; hash)

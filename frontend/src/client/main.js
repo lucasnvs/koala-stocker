@@ -114,20 +114,35 @@ document.getElementById("close-card-grocery").addEventListener("click", () => {
     card_grocery.classList.toggle("hidden");
 });
 
-// document.getElementById("create-grocery-list").addEventListener("click", () => {
-//     if(itensGroceryList.length == 0) {
-//         errMSG("Não é possível salvar uma lista de compras vazia!");
-//         return
-//     };
-//     db.set("grocery", FK_newList(itensGroceryList, loggedUser.id));
-//     itensGroceryList = [];
-//     loadingEffect(document.getElementById("create-grocery-list"), () => {
-//         card_grocery.classList.toggle("hidden");
-//         renderGroceryList()
-//         renderListGroceryCard();
-//         sucessMSG("A sua lista de compras foi salva com sucesso!");
-//     })
-// })
+document.getElementById("create-grocery-list").addEventListener("click", () => {
+    if(itensGroceryList.getSize() == 0) {
+        errMSG("Não é possível salvar uma lista de compras vazia!");
+        return
+    };
+
+
+    let formData = new FormData();
+    formData.append('data', JSON.stringify(itensGroceryList.getValues()));
+    formData.append('list_name', "Lista 2 Teste"); // teste remover
+
+    fetch(BACKEND_PATH+"api/lista_compra/post-lista_compra.php", {
+        method: "POST",
+        body: formData
+    }).then(async res => {
+        let data = await res.json();
+        console.log(data)
+    })
+
+
+    itensGroceryList.clear();
+    
+    loadingEffect(document.getElementById("create-grocery-list"), () => {
+        card_grocery.classList.toggle("hidden");
+        renderGroceryList()
+        renderListGroceryCard();
+        sucessMSG("A sua lista de compras foi salva com sucesso!");
+    })
+})
 
 document.getElementById("save-grocery-list").addEventListener("click", () => {
     if(itensGroceryList.getSize() == 0) {

@@ -56,7 +56,7 @@ if(!isset($_SESSION["user_id"])) {
     <div id="card-grocery" class="hidden card-frame">
         <div class="card appear">
             <div class="top-bar">
-                <h2>Cadastrar alimento</h2><button id="close-card-grocery" class="btn-close"></button>
+                <h2>Cadastrar compra</h2><button id="close-card-grocery" class="btn-close"></button>
             </div>
             <div class="grocery">
                 <aside>
@@ -86,7 +86,7 @@ if(!isset($_SESSION["user_id"])) {
             </div>
         </div>
     </div>
-    <div id="product-register" class="hidden card-frame"> <!--  add class hidden  -->
+    <div id="product-register" class="hidden card-frame">
         <div class="card appear">
             <div class="top-bar">
                 <h2>Cadastrar alimento</h2><button id="close-card-product" class="btn-close"></button>

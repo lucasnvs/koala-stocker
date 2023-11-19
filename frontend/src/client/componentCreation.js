@@ -1,6 +1,5 @@
 import { errMSG, sucessMSG } from "./dialog.js";
-// import { itensGroceryList, loggedUser, renderGroceryList, renderItemGroceryCard, renderListGroceryCard, renderStock } from "./main.js";
-import { itensGroceryList, renderListGroceryCard } from "./main.js";
+import { BACKEND_PATH, itensGroceryList, renderListGroceryCard, renderStock } from "./main.js";
 
 const itemAddCard = (object) => {
     let body = document.createElement("div");
@@ -108,17 +107,16 @@ const itemAddCard = (object) => {
     return body;
 }
 
-const groceryCard = ( { arr: object } ) => {
-
+const groceryCard = (object) => {
+    console.log(object)
     let div = document.createElement("div");
     div.classList = "grocery-list-card";
 
     let h2 = document.createElement("h2");
-    h2.textContent = "Compra";
+    h2.textContent = object.nome;
 
     let span = document.createElement("span");
-    span.innerHTML = `Listar ${object.length} itens <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z" fill="#FFF"/></svg>`;
-
+    span.innerHTML = `Listar ${object["produtos"].length} itens <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z" fill="#FFF"/></svg>`;
 
     span.addEventListener("click", () => {
         ul.classList.toggle("hidden");
@@ -126,9 +124,9 @@ const groceryCard = ( { arr: object } ) => {
     let ul = document.createElement("ul");
     ul.classList = "list hidden";
 
-    object.forEach(element => {
+    object["produtos"].forEach(element => {
         let li = document.createElement("li");
-        li.textContent = `${element.name} - ${element.value} ${element.typeQuantity}`
+        li.textContent = `${element.nome} - ${element.quantidade} ${element.tipo_quantidade}`
         ul.appendChild(li);
     });
 
@@ -137,11 +135,21 @@ const groceryCard = ( { arr: object } ) => {
     btn.className = "btn";
 
     btn.addEventListener("click", () => {
-        object.forEach( item => {
-            db.UpdateGroceryWhereId( loggedUser.id, item );
-        })
-        sucessMSG(`Os ${object.length} itens da lista de compras foram adicionados ao estoque em suas respectivas quantidades!`);
-        renderStock();
+            let formData = new FormData();
+            formData.append('data', JSON.stringify(object["produtos"]));
+        
+            fetch(BACKEND_PATH+"api/produtos/post-insert-compra.php", {
+                method: "POST",
+                body: formData
+            }).then(async res => {
+                let data = await res.json();
+                console.log(data)
+                if(data.status = "sucess") {
+                    sucessMSG(`Os ${object["produtos"].length} itens da lista de compras foram adicionados ao estoque em suas respectivas quantidades!`);
+                    renderStock();
+                }
+            })
+
     });
 
     div.appendChild(h2);

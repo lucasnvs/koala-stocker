@@ -4,7 +4,7 @@ import { loadingEffect } from "../utils.js";
 import { errMSG, sucessMSG } from "./dialog.js";
 
 
-const BACKEND_PATH = "../../../backend/";
+export const BACKEND_PATH = "../../../backend/";
 
 const list = document.getElementById('stock-list');
 const groceryList = document.getElementById('grocery-list');
@@ -13,6 +13,16 @@ const card_grocery_list = document.getElementById("item-table");
 const card_grocery_list_item = document.getElementById("item-list");
 const card_newItem = document.getElementById("product-register");
 
+let allCardFrames = document.querySelectorAll(".card-frame");
+allCardFrames.forEach(cardFrame => {
+    cardFrame.addEventListener("click", e => {
+        let target = e.target;
+        if(target == cardFrame) {
+            console.log("Clicou fora")
+            cardFrame.classList.toggle("hidden")
+        }
+    })
+})
 
 document.getElementById("disconnect").addEventListener("click", () => {
     fetch(BACKEND_PATH + "logout.php").then(async res => {
@@ -60,17 +70,17 @@ export const renderStock = (param = BACKEND_PATH+"api/estoque/get-estoque.php") 
     list.innerHTML += text;
 })
 
-// export const renderGroceryList = (param = "grocery") => render(param, groceryList, (item) => {
-//     let comp = componentCreation.groceryCard(item);
-//     groceryList.appendChild(comp);
-// });
-
 export const renderItemGroceryCard = (param = BACKEND_PATH+"api/produtos/get-produtos.php") => render(param, card_grocery_list_item, (item) => {
     let li = document.createElement("li");
     let comp = componentCreation.itemAddCard(item);
     li.appendChild(comp)
     card_grocery_list_item.appendChild(li);
 })
+
+export const renderGroceryList = (param = BACKEND_PATH+"api/lista_compra/get-lista_compra.php") => render(param, groceryList, (item) => {
+    let comp = componentCreation.groceryCard(item);
+    groceryList.appendChild(comp);
+});
 
 export const renderListGroceryCard = () => render(itensGroceryList.getValues(), card_grocery_list, (item) => {
     card_grocery_list.innerHTML += `<tr><td>${item.nome}</td><td>${item.quantidade} ${item.tipo_quantidade}</td></tr>`
@@ -79,8 +89,7 @@ export const renderListGroceryCard = () => render(itensGroceryList.getValues(), 
 // //pre rendering 
 renderStock();
 renderItemGroceryCard();
-
-// renderGroceryList();
+renderGroceryList();
 
 // // search in stock
 // const searchStock = document.getElementById('searchInStock');

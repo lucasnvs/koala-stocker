@@ -1,10 +1,6 @@
-import { addDefaultItems, db, setMethodsDB } from "../database/db.js";
 import { loadingEffect } from "../utils.js";
 import { errMSG, sucessMSG } from "./dialog.js";
 import { criaSignupCard } from "./signup.js";
-
-setMethodsDB()
-addDefaultItems();
 
 export const white_side = document.getElementById("branco");
 const login_ref = document.getElementById("login-ref");

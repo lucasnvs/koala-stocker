@@ -1,5 +1,4 @@
 import { checkEmailFormat, checkPasswordFormat, loadingEffect } from "../utils.js";
-import { db, newObject } from "../database/db.js";
 import { loginCard, white_side } from "./login.js";
 import { errMSG } from "./dialog.js";
 

@@ -9,7 +9,7 @@
 
     if(!isset($email) || !isset($password)) return;
 
-    $sql = "SELECT id_user, senha, user_role FROM users WHERE email = :emailUser";
+    $sql = "SELECT nome_completo, id_user, senha, user_role FROM users WHERE email = :emailUser";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam("emailUser", $email);
     $stmt->execute();
@@ -19,6 +19,7 @@
     if(password_verify($password, $queryResult["senha"])) {
         session_start();
         $_SESSION["user_id"] = $queryResult["id_user"];
+        $_SESSION["user_name"] = $queryResult["nome_completo"];
         $_SESSION["user_role"] = $queryResult["user_role"];
 
         $response["status"] = 200;

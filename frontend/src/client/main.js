@@ -11,7 +11,15 @@ const groceryList = document.getElementById('grocery-list');
 const card_grocery = document.getElementById("card-grocery");
 const card_grocery_list = document.getElementById("item-table");
 const card_grocery_list_item = document.getElementById("item-list");
-const card_newItem = document.getElementById("product-register");
+
+fetch(BACKEND_PATH+"logged-info.php").then(async res => {
+    let data = await res.json();
+    document.getElementById("user-name").innerHTML = data.username;
+    console.log(data);
+    if(data.role == "ADMIN") {
+        document.getElementById("top-menu-options").insertAdjacentHTML("afterbegin", `<li><a href="admin.php">Admin</a></li>`);
+    }
+});
 
 let allCardFrames = document.querySelectorAll(".card-frame");
 allCardFrames.forEach(cardFrame => {
@@ -179,35 +187,5 @@ document.getElementById("save-grocery-list").addEventListener("click", () => {
         renderStock();
         renderListGroceryCard();
         sucessMSG("Os itens da sua compra foram somados ao estoque!");
-    })
-})
-
-// ///// card new item
-document.getElementById("add-item").addEventListener("click", () => {
-    card_newItem.classList.toggle("hidden");
-});
-document.getElementById("close-card-product").addEventListener("click", () => {
-    card_newItem.classList.toggle("hidden");
-});
-
-const formProductRegister = document.getElementById("form-product-register");
-formProductRegister.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    fetch(BACKEND_PATH + "api/produtos/post-produtos.php", {
-        method: "POST",
-        body: new FormData(formProductRegister)
-    }).then(async res => {
-        let data = await res.json();
-        if (data.status == "sucess") {
-            card_newItem.classList.toggle("hidden");
-            document.getElementById("title-item").value = "";
-            document.querySelector("input[name='typeQuantity']").checked = "";
-            document.getElementById("file-input").value = "";
-
-            renderStock();
-            renderItemGroceryCard();
-            sucessMSG("Item criado com sucesso!");
-        }
     })
 })

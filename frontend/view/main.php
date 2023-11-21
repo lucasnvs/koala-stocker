@@ -60,7 +60,6 @@ if(!isset($_SESSION["user_id"])) {
             </div>
             <div class="grocery">
                 <aside>
-                    <p>Caso você tenha comprado um alimento que não tenha cadastrado ainda, <a id="add-item" href="#">cadastre agora.</a></p>
                     <input id="search-grocery-item" type="text" placeholder="Nome do alimento...">
                     <ul id="item-list">
                     </ul>
@@ -86,28 +85,7 @@ if(!isset($_SESSION["user_id"])) {
             </div>
         </div>
     </div>
-    <div id="product-register" class="hidden card-frame">
-        <div class="card appear">
-            <div class="top-bar">
-                <h2>Cadastrar alimento</h2><button id="close-card-product" class="btn-close"></button>
-            </div>
-            <form id="form-product-register" class="product-register">
-                <input id="title-item" type="text" name="name" placeholder="Nome do Alimento...">
-                <h4>Qual medida você deseja usar para este alimento?</h4>
-                <div class="radio-container">
-                    <input type="radio" id="radioUnit" value="UNIDADE" name="typeQuantity">
-                    <label for="radioUnit">Unidade</label>
-                    <input type="radio" id="radioKg" value="KILOGRAMA" name="typeQuantity">
-                    <label for="radioKg">Kilogramas(Kg)</label>
-                    <input type="radio" id="radioLt" value="LITRO" name="typeQuantity">
-                    <label for="radioLt">Litros</label>
-                </div>
 
-                <input id="file-input" type="file" name="file-upload">
-                <input id="btn-product-submit" class="btn" type="submit" value="Cadastrar">
-            </form>
-        </div>
-    </div>
 
 </body>
 </html>

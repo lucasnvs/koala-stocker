@@ -6,7 +6,7 @@ header("Content-Type: application/json");
 
 $user_session_id = $_SESSION["user_id"];
 
-$response = array();
+$response = [];
 $response["status"] = "error";
 
 try {
@@ -39,9 +39,10 @@ try {
     $response["status"] = "sucess";
     echo json_encode($response);
 } catch (Exception $e) {
-    $response["status"] = "error";
-    $response["body"] = $e->getMessage();
-    echo  json_encode($response);
+    echo json_encode([
+        "status"=> "error",
+        "message"=> $e->getMessage()
+    ]);
 }
 
 // requisitar do banco todas as listas do usuario

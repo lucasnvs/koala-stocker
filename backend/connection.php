@@ -1,10 +1,12 @@
 <?php
 
-$host = "mysql"; 
-$user = "root";
-$port = "3306";  
-$password = "db_koala";
-$database = "koala";
+$config = json_decode(file_get_contents("../../../config.json"), true);
+
+$host = $config["mysql"]["HOST"];
+$user = $config["mysql"]["USER"];
+$password = $config["mysql"]["MYSQL_PASSWORD"];
+$database = $config["mysql"]["MYSQL_DATABASE"];
+$port = $config["mysql"]["MYSQL_PORT_LOCAL"];
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

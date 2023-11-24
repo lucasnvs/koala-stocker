@@ -1,12 +1,9 @@
-import { sucessMSG } from "./dialog.js";
+import { buildHeader } from "./header.js";
+import { toastMessage } from "./dialog.js";
 
-document.getElementById("disconnect").addEventListener("click", () => {
-    fetch("../../../backend/logout.php").then(async res => {
-        window.location.href = "../../index.php";
-    })
-});
+buildHeader();
 
-fetch("../../../backend/api/produtos/get-produtos.php").then(async res => {
+fetch("./backend/api/produtos/get-produtos.php").then(async res => {
     let data = await res.json();
     if(data.status == "sucess") {
         data.body.forEach(element => {
@@ -25,23 +22,24 @@ document.getElementById("close-card-product").addEventListener("click", () => {
 });
 
 const formProductRegister = document.getElementById("form-product-register");
-formProductRegister.addEventListener("submit", (e) => {
+formProductRegister.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    fetch("../../../backend/api/produtos/post-produtos.php", {
+    const response = fetch("./backend/api/produtos/post-produtos.php", {
         method: "POST",
         body: new FormData(formProductRegister)
-    }).then(async res => {
-        let data = await res.json();
-        if (data.status == "sucess") {
-            card_newItem.classList.toggle("hidden");
-            document.getElementById("title-item").value = "";
-            document.querySelector("input[name='typeQuantity']").checked = "";
-            document.getElementById("file-input").value = "";
+    }).then(res => res.json());
 
-            sucessMSG("Item criado com sucesso!");
-        }
-    })
+    if (data.status == "success") {
+        card_newItem.classList.toggle("hidden");
+        document.getElementById("title-item").value = "";
+        document.querySelector("input[name='typeQuantity']").checked = "";
+        document.getElementById("file-input").value = "";
+
+        // sucessMSG("Item criado com sucesso!");
+    }
+    
+    toastMessage(response.message, response.status);
 })
 
 function adminProdutoItem(object) {

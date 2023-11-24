@@ -20,18 +20,14 @@ $user_session_id = $_SESSION["user_id"];
 $post = filter_input_array(INPUT_POST);
 $itens = json_decode($post["data"], true);
 
-$response = array();
-$response["status"] = "error";
-$response["message"] = "Nenhuma ação realizada!";
-$response["body"] = $itens;
-
 $listName = $post["list_name"];
 
 try {
     if(!isset($itens) || !isset($listName)) {
-        $response["status"] = "error";
-        $response["message"] = "Há valores que não foram enviados na requisição!";
-        echo json_encode($response);
+        echo json_encode([
+            "status"=> "error",
+            "message"=> "Há valores que não foram enviados na requisição!"
+        ]);
         exit;
     }
 
@@ -43,11 +39,14 @@ try {
         $stmt->execute([$item["id_produto"], $listaID ,$item["quantidade"]]);
     }
 
-    $response["status"] = "sucess";
-    $response["message"] = "Lista de Compras salva com sucesso!";
-    echo json_encode($response);
+    echo json_encode([
+        "status" => "success",
+        "message" => "Lista de Compras salva com sucesso!",
+        "body" => $itens
+    ]);
 } catch (Exception $e) {
-    echo "Erro: " . $e->getMessage();
+    echo json_encode([
+        "status" => "error",
+        "message" => $e->getMessage(),
+    ]);
 }
-
-

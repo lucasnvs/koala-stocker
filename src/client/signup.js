@@ -1,6 +1,6 @@
 import { checkEmailFormat, checkPasswordFormat, loadingEffect } from "../utils.js";
 import { loginCard, white_side } from "./login.js";
-import { errMSG } from "./dialog.js";
+import { toastMessage } from "./dialog.js";
 
 export function criaSignupCard() {
     var divSignup = document.createElement('div');
@@ -133,11 +133,9 @@ export function criaSignupCard() {
                 method: "POST",
                 body: form
             }).then(res => res.json()).then(res => {
-                if(res.status != 200) {
-                    errMSG(res.message);
-                    console.log(res)
-                    return;
-                }
+                toastMessage(res.message, res.status);
+                if(res.status == "error") return;
+
                 loadingEffect(btnSignup, () => {
                     divSignup.remove();
                     white_side.appendChild(loginCard);

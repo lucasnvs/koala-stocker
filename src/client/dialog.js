@@ -1,4 +1,4 @@
-export const errMSG = (paramText = "Erro!") => {
+const errMSG = (paramText = "Erro!") => {
     let container = document.createElement("div");
     container.className = "container-msg";
     
@@ -25,7 +25,7 @@ export const errMSG = (paramText = "Erro!") => {
     }, 2000)
 }
 
-export const sucessMSG = (paramText = "Sucesso!") => {
+const sucessMSG = (paramText = "Sucesso!") => {
     let container = document.createElement("div");
     container.className = "container-msg";
 
@@ -50,3 +50,12 @@ export const sucessMSG = (paramText = "Sucesso!") => {
         container.remove();
     }, 2000)
 }
+
+export const toastMessage = (message, type = "success") => {
+    if(type == "error") {
+        errMSG(message);
+    }
+    if(type == "success") {
+        sucessMSG(message);
+    }
+};

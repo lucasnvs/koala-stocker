@@ -1,5 +1,5 @@
 import { loadingEffect } from "../utils.js";
-import { errMSG, sucessMSG } from "./dialog.js";
+import { toastMessage } from "./dialog.js";
 import { criaSignupCard } from "./signup.js";
 
 export const white_side = document.getElementById("branco");
@@ -42,19 +42,17 @@ login_ref.addEventListener('click', () => {
 // Login Check
 
 const formLogin = document.getElementById('login');
-formLogin.addEventListener('submit', (e) => {
+formLogin.addEventListener('submit', async (e) => {
     e.preventDefault();
-    fetch("../../../backend/login.php", {
+
+    const response = await fetch("./backend/login.php", {
         method: "POST",
         body: new FormData(formLogin)
-    }).then(res => res.json()).then(res => {
-        if(res.status != 200) { // status do retorno
-            errMSG(res.message); // message do retorno
-            return
-        }
-        sucessMSG(res.message);
-        loadingEffect(e.target, () => {
-            window.location.href = "frontend/view/main.php";
-        });
-    })
+    }).then(res => res.json());
+    
+    toastMessage(response.message, response.status)
+
+    loadingEffect(e.target, () => {
+        window.location.href = "./main.php";
+    });
 });

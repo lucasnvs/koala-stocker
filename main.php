@@ -1,7 +1,7 @@
 <?php
 session_start(); 
-if(!isset($_SESSION["user_id"])) {
-    header("Location: ../../../index.php");
+if(!isset($_SESSION["user"])) {
+    header("Location: ./index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -12,23 +12,14 @@ if(!isset($_SESSION["user_id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/gif" href="../assets/icons/logo_img.png">
     <title>Koala's - Dashboard</title>
-    <link rel="stylesheet" href="../styles/global.css">
-    <link rel="stylesheet" href="../styles/subclasses.css">
-    <link rel="stylesheet" href="../styles/components.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <script type="module" src="../src/client/main.js" async></script>
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/subclasses.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <script type="module" src="./src/client/main.js" async></script>
 </head>
 <body>
-    <header id="header">
-        <img src="../assets/icons/Logo.png" class="logo" alt="logo koala stocker">
-
-        <div class="user">
-            <h3><span id="user-name">Usuário</span><img src="../assets/icons/caret-down.svg"></h3>
-            <ul id="top-menu-options">
-                <li><a id="disconnect">Desconectar</a></li>
-            </ul>
-        </div>
-    </header>
+    <header id="header"></header>
     <main id="main">
         <section id="grocery">
             <div class="space topbottom">

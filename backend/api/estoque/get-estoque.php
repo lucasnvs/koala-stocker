@@ -6,21 +6,24 @@ header("Content-Type: application/json");
 
 $user_session_id = $_SESSION["user_id"];
 
-$response = array();
-$response["status"] = "error";
+$response = [];
 
 try {
     $rs = $conn->prepare("CALL pegar_estoque_usuario(?)");
     $rs->execute([$user_session_id]);
-    $response["status"] = "sucess";
 
     while($row = $rs->fetch(PDO::FETCH_OBJ)) {
         $response["body"][] = $row;
     }
 
-    echo json_encode($response);
+    echo json_encode([
+        "status"=> "success",
+        "message" => "Estoque encontrado com sucesso!",
+        "body" => $response["body"]
+    ]);
 } catch (Exception $e) {
-    $response["status"] = "error";
-    $response["body"] = $e->getMessage();
-    echo  json_encode($response);
+    echo json_encode([
+        "status"=> "error",
+        "message" => $e->getMessage(),
+    ]);
 }

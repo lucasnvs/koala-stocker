@@ -4,21 +4,25 @@ include "../../connection.php";
 
 header("Content-Type: application/json");
 
-$response = array();
-$response["status"] = "error";
+$response = [];
 
 try {
     $rs = $conn->prepare("SELECT * FROM produtos;");
     $rs->execute();
-    $response["status"] = "sucess";
 
     while($row = $rs->fetch(PDO::FETCH_OBJ)) {
         $response["body"][] = $row;
     }
 
-    echo json_encode($response);
+    echo json_encode([
+        "status" => "success",
+        "message" => "Produtos encontrados!",
+        "body" => $response["body"]
+    ]);
+
 } catch (Exception $e) {
-    $response["status"] = "error";
-    $response["body"] = $e->getMessage();
-    echo  json_encode($response);
+    echo json_encode([
+        "status" => "error",
+        "message" => $e->getMessage(),
+    ]);
 }

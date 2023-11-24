@@ -1,7 +1,7 @@
-import { errMSG, sucessMSG } from "./dialog.js";
+import { toastMessage } from "./dialog.js";
 import { BACKEND_PATH, itensGroceryList, renderListGroceryCard, renderStock } from "./main.js";
 
-const itemAddCard = (object) => {
+function itemAddCard(object) {
     let body = document.createElement("div");
     body.classList = "card item";
 
@@ -107,7 +107,7 @@ const itemAddCard = (object) => {
     return body;
 }
 
-const groceryCard = (object) => {
+function groceryCard(object) {
     console.log(object)
     let div = document.createElement("div");
     div.classList = "grocery-list-card";
@@ -134,22 +134,21 @@ const groceryCard = (object) => {
     btn.textContent = "Usar";
     btn.className = "btn";
 
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
             let formData = new FormData();
             formData.append('data', JSON.stringify(object["produtos"]));
         
-            fetch(BACKEND_PATH+"api/produtos/post-insert-compra.php", {
+            const response = await fetch(BACKEND_PATH+"api/produtos/post-insert-compra.php", {
                 method: "POST",
                 body: formData
-            }).then(async res => {
-                let data = await res.json();
-                console.log(data)
-                if(data.status = "sucess") {
-                    sucessMSG(`Os ${object["produtos"].length} itens da lista de compras foram adicionados ao estoque em suas respectivas quantidades!`);
-                    renderStock();
-                }
-            })
+            }).then(res => res.json());
 
+            if(data.status == "success") {
+                renderStock();
+            }
+
+            toastMessage(response.message, response.status);
+            // sucessMSG(`Os ${object["produtos"].length} itens da lista de compras foram adicionados ao estoque em suas respectivas quantidades!`);
     });
 
     div.appendChild(h2);
@@ -160,10 +159,7 @@ const groceryCard = (object) => {
     return div;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////
-// AVISO
-
-export const componentCreation = {
+export const components = {
     itemAddCard,
     groceryCard,
 }

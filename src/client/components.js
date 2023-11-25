@@ -148,7 +148,6 @@ function groceryCard(object) {
             }
 
             toastMessage(response.message, response.status);
-            // sucessMSG(`Os ${object["produtos"].length} itens da lista de compras foram adicionados ao estoque em suas respectivas quantidades!`);
     });
 
     div.appendChild(h2);

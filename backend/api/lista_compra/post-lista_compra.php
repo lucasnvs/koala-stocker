@@ -15,7 +15,7 @@ function criaListaRetornaId($conn, $listName, $user_session_id) {
     return $row['listaID'];
 }
 
-$user_session_id = $_SESSION["user_id"];
+$user_session_id = $_SESSION["user"]["id"];
 
 $post = filter_input_array(INPUT_POST);
 $itens = json_decode($post["data"], true);

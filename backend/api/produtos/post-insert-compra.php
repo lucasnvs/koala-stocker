@@ -4,7 +4,7 @@ include "../../connection.php";
 
 header("Content-Type: application/json");
 
-$user_session_id = $_SESSION["user_id"];
+$user_session_id = $_SESSION["user"]["id"];
 
 $post = filter_input_array(INPUT_POST);
 $itens = json_decode($post["data"], true);
@@ -26,7 +26,7 @@ try {
 
     echo json_encode([
         "status" => "success",
-        "message" => "Compras salvas com sucesso!",
+        "message" => "Compra efetuada e salva!",
         "body" => $itens,
     ]);
 

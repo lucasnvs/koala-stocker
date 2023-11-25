@@ -4,7 +4,7 @@ include "../../connection.php";
 
 header("Content-Type: application/json");
 
-$user_session_id = $_SESSION["user_id"];
+$user_session_id = $_SESSION["user"]["id"];
 
 $response = [];
 

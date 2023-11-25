@@ -1,6 +1,7 @@
 <?php
+$raiz = $_SERVER['DOCUMENT_ROOT'];
 
-$config = json_decode(file_get_contents("../../../config.json"), true);
+$config = json_decode(file_get_contents($raiz . "/config.json"), true);
 
 $host = $config["mysql"]["HOST"];
 $user = $config["mysql"]["USER"];

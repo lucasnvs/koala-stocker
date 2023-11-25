@@ -1,25 +1,26 @@
 import { buildHeader } from "./header.js";
 import { toastMessage } from "./dialog.js";
 
+let card = document.getElementById("product-register");
+
 buildHeader();
 
 fetch("./backend/api/produtos/get-produtos.php").then(async res => {
     let data = await res.json();
-    if(data.status == "sucess") {
+    console.log(data);
+    if(data.status == "success") {
         data.body.forEach(element => {
             adminProdutoItem(element);
         });
     }
 })
 
-const card_newItem = document.getElementById("product-register");
+function toogleCardNewItem() {
+    card.classList.toggle("hidden");
+}
 
-document.getElementById("add-item").addEventListener("click", () => {
-    card_newItem.classList.toggle("hidden");
-});
-document.getElementById("close-card-product").addEventListener("click", () => {
-    card_newItem.classList.toggle("hidden");
-});
+document.getElementById("add-item").onclick = toogleCardNewItem();
+document.getElementById("close-card-product").onclick = toogleCardNewItem();
 
 const formProductRegister = document.getElementById("form-product-register");
 formProductRegister.addEventListener("submit", async (e) => {
@@ -30,13 +31,11 @@ formProductRegister.addEventListener("submit", async (e) => {
         body: new FormData(formProductRegister)
     }).then(res => res.json());
 
-    if (data.status == "success") {
-        card_newItem.classList.toggle("hidden");
+    if (response.status == "success") {
+        toogleCardNewItem();
         document.getElementById("title-item").value = "";
         document.querySelector("input[name='typeQuantity']").checked = "";
         document.getElementById("file-input").value = "";
-
-        // sucessMSG("Item criado com sucesso!");
     }
     
     toastMessage(response.message, response.status);

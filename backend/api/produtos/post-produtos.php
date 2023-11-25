@@ -62,7 +62,7 @@ try {
 
         echo json_encode([
             "status" => "success",
-            "message" => "Produto salvo com sucesso!",
+            "message" => "Produto criado com sucesso!",
         ]);
         exit;
     } else {

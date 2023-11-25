@@ -4,7 +4,7 @@ include "../../connection.php";
 
 header("Content-Type: application/json");
 
-$user_session_id = $_SESSION["user_id"];
+$user_session_id = $_SESSION["user"]["id"];
 
 $response = [];
 $response["status"] = "error";
@@ -44,6 +44,3 @@ try {
         "message"=> $e->getMessage()
     ]);
 }
-
-// requisitar do banco todas as listas do usuario
-// requisitar todos os itens da lista x de cada id de lista e concatenar no body

@@ -31,6 +31,7 @@ session_start();
 $_SESSION["user"]["email"] = $email;
 $_SESSION["user"]["name"] = $queryResult["nome_completo"];
 $_SESSION["user"]["role"] = $queryResult["user_role"];
+$_SESSION["user"]["id"] = $queryResult["id_user"]; // gambiarra
 
 echo json_encode([
     "status" => "success",

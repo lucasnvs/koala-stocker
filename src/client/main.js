@@ -5,14 +5,13 @@ import { toastMessage } from "./dialog.js";
 import { buildHeader } from "./header.js";
 
 export const BACKEND_PATH = "./backend/";
+export const itensGroceryList = new ListaUnitaria("id_produto");
 
 const list = document.getElementById('stock-list');
 const groceryList = document.getElementById('grocery-list');
 const card_grocery = document.getElementById("card-grocery");
 const card_grocery_list = document.getElementById("item-table");
 const card_grocery_list_item = document.getElementById("item-list");
-
-buildHeader();
 
 let allCardFrames = document.querySelectorAll(".card-frame");
 allCardFrames.forEach(cardFrame => {
@@ -24,8 +23,6 @@ allCardFrames.forEach(cardFrame => {
         }
     })
 })
-
-export const itensGroceryList = new ListaUnitaria("id_produto");
 
 async function render(paramDATA, element, build) {
     let values = paramDATA;
@@ -74,14 +71,12 @@ export const renderListGroceryCard = () => render(itensGroceryList.getValues(), 
     card_grocery_list.innerHTML += `<tr><td>${item.nome}</td><td>${item.quantidade} ${item.tipo_quantidade}</td></tr>`
 })
 
-// //pre rendering 
+buildHeader();
 renderStock();
 renderItemGroceryCard();
 renderGroceryList();
 
-// // search in stock
 // const searchStock = document.getElementById('searchInStock');
-
 // searchStock.addEventListener('input', async (e) => {
 //     let value = e.target.value.toLowerCase();
 //     let items = await db.getWhereUserId("item", loggedUser.id);
@@ -90,7 +85,6 @@ renderGroceryList();
 // });
 
 // const searchGrocery = document.getElementById('search-grocery-item');
-
 // searchGrocery.addEventListener('input', async (e) => {
 //     let value = e.target.value.toLowerCase();
 //     let items = await db.getWhereUserId("item", loggedUser.id);
@@ -130,8 +124,6 @@ document.getElementById("create-grocery-list").addEventListener("click", async (
         renderGroceryList()
         renderListGroceryCard();
     })
-
-    // sucessMSG("A sua lista de compras foi salva com sucesso!");
 })
 
 document.getElementById("save-grocery-list").addEventListener("click", async () => {
@@ -153,7 +145,9 @@ document.getElementById("save-grocery-list").addEventListener("click", async () 
     if(response.status == "success") {
         itensGroceryList.clear();
     }
-
+    if(response.status == "error") {
+        throw new Error(response.message);
+    }
     loadingEffect(document.getElementById("save-grocery-list"), () => {
         card_grocery.classList.toggle("hidden");
         renderStock();
@@ -161,5 +155,4 @@ document.getElementById("save-grocery-list").addEventListener("click", async () 
     })
 
     toastMessage(response.message, response.status);
-    // sucessMSG("Os itens da sua compra foram somados ao estoque!");
 })

@@ -19,14 +19,18 @@ function toogleCardNewItem() {
     card.classList.toggle("hidden");
 }
 
-document.getElementById("add-item").onclick = toogleCardNewItem();
-document.getElementById("close-card-product").onclick = toogleCardNewItem();
+document.getElementById("add-item").onclick = () => toogleCardNewItem();
+document.getElementById("close-card-product").onclick = () => toogleCardNewItem();
 
 const formProductRegister = document.getElementById("form-product-register");
 formProductRegister.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const response = fetch("./backend/api/produtos/post-produtos.php", {
+    let selectValue = document.getElementById("typeQuantity");
+
+    formProductRegister.append("typeQuantity", selectValue);
+    
+    const response = await fetch("./backend/api/produtos/post-produtos.php", {
         method: "POST",
         body: new FormData(formProductRegister)
     }).then(res => res.json());

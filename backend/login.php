@@ -19,6 +19,14 @@ $stmt->bindParam("emailUser", $email);
 $stmt->execute();
 $queryResult = $stmt->fetch();
 
+if(!$queryResult) {
+    echo json_encode([
+        "status" => "error",
+        "message" => "Email não está cadastrado!"
+    ]);
+    exit;
+}
+
 if(!password_verify($password, $queryResult["senha"])) {
     echo json_encode([
         "status" => "error",

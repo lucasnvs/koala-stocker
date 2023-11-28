@@ -7,6 +7,8 @@ header("Content-Type: application/json");
 $response = [];
 
 try {
+    $response["body"] = [];
+
     $rs = $conn->prepare("SELECT * FROM produtos;");
     $rs->execute();
 

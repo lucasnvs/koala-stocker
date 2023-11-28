@@ -5,7 +5,7 @@ include "../../connection.php";
 header("Content-Type: application/json");
 
 function testAuth($role) {
-    if($_SESSION["user_role"] == $role) {
+    if($_SESSION["user"]["role"] == $role) {
         return true;
     }
     return false;

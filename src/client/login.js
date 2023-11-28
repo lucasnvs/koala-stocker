@@ -52,7 +52,9 @@ formLogin.addEventListener('submit', async (e) => {
     
     toastMessage(response.message, response.status)
 
-    loadingEffect(e.target, () => {
-        window.location.href = "./main.php";
-    });
+    if(response.status == "success") {
+        loadingEffect(e.target, () => {
+            window.location.href = "./main.php";
+        });
+    }
 });

@@ -143,7 +143,7 @@ function groceryCard(object) {
                 body: formData
             }).then(res => res.json());
 
-            if(data.status == "success") {
+            if(response.status == "success") {
                 renderStock();
             }
 

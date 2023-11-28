@@ -33,22 +33,19 @@ if ($_SESSION["user"]["role"] != "ADMIN") {
             </div>
         </div>
     </div>
-    <div id="product-register" class="hidden card-frame">
+    <div id="product-register" class="card-frame">
         <div class="card appear">
             <div class="top-bar">
                 <h2>Cadastrar alimento</h2><button id="close-card-product" class="btn-close"></button>
             </div>
             <form id="form-product-register" class="product-register">
                 <input id="title-item" type="text" name="name" placeholder="Nome do Alimento...">
-                <h4>Qual medida você deseja usar para este alimento?</h4>
-                <div class="radio-container">
-                    <input type="radio" id="radioUnit" value="UNIDADE" name="typeQuantity">
-                    <label for="radioUnit">Unidade</label>
-                    <input type="radio" id="radioKg" value="KILOGRAMA" name="typeQuantity">
-                    <label for="radioKg">Kilogramas(Kg)</label>
-                    <input type="radio" id="radioLt" value="LITRO" name="typeQuantity">
-                    <label for="radioLt">Litros</label>
-                </div>
+                <select id="typeQuantity">
+                    <option selected disabled>Selecione qual medida deseja usar.</option>
+                    <option value="UNIDADE">Unidade</option>
+                    <option value="KILOGRAMA">Kilogramas (KG)</option>
+                    <option value="LITRO">Litros</option>
+                </select>
 
                 <input id="file-input" type="file" name="file-upload">
                 <input id="btn-product-submit" class="btn" type="submit" value="Cadastrar">

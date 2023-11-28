@@ -25,20 +25,20 @@ document.getElementById("close-card-product").onclick = () => toogleCardNewItem(
 const formProductRegister = document.getElementById("form-product-register");
 formProductRegister.addEventListener("submit", async (e) => {
     e.preventDefault();
+    let formData = new FormData(formProductRegister);
 
     let selectValue = document.getElementById("typeQuantity");
+    formData.append("typeQuantity", selectValue);
 
-    formProductRegister.append("typeQuantity", selectValue);
-    
     const response = await fetch("./backend/api/produtos/post-produtos.php", {
         method: "POST",
-        body: new FormData(formProductRegister)
+        body: formData
     }).then(res => res.json());
 
     if (response.status == "success") {
         toogleCardNewItem();
         document.getElementById("title-item").value = "";
-        document.querySelector("input[name='typeQuantity']").checked = "";
+        selectValue.value = "";
         document.getElementById("file-input").value = "";
     }
     

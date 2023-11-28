@@ -36,6 +36,16 @@ try {
         exit;
     }
 
+    foreach($post as $key) {
+        if(empty($key)) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Nenhum dos valores pode ser nulo!",
+            ]);
+            exit;
+        }
+    }
+
     if ($_FILES["file-upload"]["error"] == UPLOAD_ERR_INI_SIZE || $_FILES["file-upload"]["size"] > 5 * $MB1) {
         echo json_encode([
             "status" => "error",

@@ -1,29 +1,35 @@
 import { buildHeader } from "./header.js";
-import { toastMessage } from "./dialog.js";
+import { confirmCard, toastMessage } from "./dialog.js";
 import { cardOutClick } from "../utils.js";
 
-let card = document.getElementById("product-register");
+const cardProduct = document.getElementById("product-register");
+const edit_card = document.getElementById("edit-product-register");
 
 cardOutClick();
 buildHeader();
+updateProdutos();
 
-fetch("./backend/api/produtos/get-produtos.php").then(async res => {
-    let data = await res.json();
-    console.log(data);
-    if(data.status == "success") {
-        data.body.forEach(element => {
-            adminProdutoItem(element);
-        });
-    }
-})
-
-function toogleCardNewItem() {
-    card.classList.toggle("hidden");
+function updateProdutos() {
+    document.getElementById("list").innerHTML = "";
+    fetch("./backend/api/produtos/get-produtos.php").then(async res => {
+        let data = await res.json();
+        console.log(data);
+        if(data.status == "success") {
+            data.body.forEach(element => {
+                adminProdutoItem(element);
+            });
+        }
+    })
 }
 
-document.getElementById("add-item").onclick = () => toogleCardNewItem();
+function toggleCard(card) {
+    card.classList.toggle("hidden");
+}
+document.getElementById("edit-close-card-product").onclick = () => toggleCard(edit_card)
+
+document.getElementById("add-item").onclick = () => toggleCard(cardProduct);
 document.getElementById("close-card-product").onclick = function() {
-    toogleCardNewItem();
+    toggleCard(cardProduct);
     document.getElementById("title-item").value = "";
     document.getElementById("file-input").value = "";
     document.getElementById("typeQuantity").value = "";
@@ -34,7 +40,7 @@ formProductRegister.addEventListener("submit", async (e) => {
     e.preventDefault();
     let formData = new FormData(formProductRegister);
 
-    let selectValue = document.getElementById("typeQuantity");
+    let selectValue = document.getElementById("typeQuantity").value;
     formData.append("typeQuantity", selectValue);
 
     const response = await fetch("./backend/api/produtos/post-produtos.php", {
@@ -43,12 +49,37 @@ formProductRegister.addEventListener("submit", async (e) => {
     }).then(res => res.json());
 
     if (response.status == "success") {
-        toogleCardNewItem();
+        toggleCard(cardProduct);
         document.getElementById("title-item").value = "";
-        selectValue.value = "";
+        selectValue = "";
         document.getElementById("file-input").value = "";
+        updateProdutos();
     }
     
+    toastMessage(response.message, response.status);
+})
+
+
+const editForm = document.getElementById("edit-form-product-register");
+const editFormData = new FormData(editForm);
+
+editForm.addEventListener("submit", async (e) =>{
+    e.preventDefault();
+
+    let nameValue = document.getElementById("edit-title-item").value;
+
+    editFormData.append("name", nameValue);
+
+    const response = await fetch("./backend/api/produtos/update-produtos.php", {
+        method: "POST",
+        body: editFormData
+    }).then(res => res.json())
+
+    if(response.status == "success") {
+        toggleCard(edit_card);
+        updateProdutos();
+    }
+
     toastMessage(response.message, response.status);
 })
 
@@ -114,17 +145,37 @@ function adminProdutoItem(object) {
 
 
     editButton.addEventListener("click", () => {
-        // reutilizar card de criar
-        // setar valores do input
-        // 
+        document.getElementById("edit-typeQuantity").value = object.tipo_quantidade;
+        document.getElementById("edit-title-item").value = object.nome;
+        let selectValue = document.getElementById("edit-typeQuantity").value;
+
+        editFormData.append("typeQuantity", selectValue);
+        editFormData.append("id_produto", object.id_produto);
+        editFormData.append("image_path", object.image_path);
+
+        toggleCard(edit_card);
     })
 
-    removeButton.addEventListener("click", () => {
-        // card de certeza
-        // se sim
-        // faz req para excluir
-        // se nao 
-        // faz nada e fecha o card
+    removeButton.addEventListener("click", async () => {
+        
+        let confirm = await confirmCard(`Ao clicar em sim você ira apagar "${object.nome}" da base de dados. Não podendo recuperá-lo, tem certeza?`).then(res => res).catch(res => res);
+
+        if(!confirm) return
+
+        let formData = new FormData();
+        formData.append("id_produto", object.id_produto)
+        formData.append("image_path", object.image_path)
+        
+        const response = await fetch("./backend/api/produtos/delete-produtos.php", {
+            method: "POST",
+            body: formData
+        }).then(res => res.json());
+
+        if(response.status == "success") {
+            updateProdutos();
+        }
+
+        toastMessage(response.message, response.status)
     })
 
     document.getElementById("list").appendChild(productItem);

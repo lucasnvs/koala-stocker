@@ -1,4 +1,4 @@
-import { toastMessage } from "./dialog.js";
+import { confirmCard, toastMessage } from "./dialog.js";
 import { BACKEND_PATH, itensGroceryList, renderListGroceryCard, renderStock } from "./main.js";
 
 function itemAddCard(object) {
@@ -135,6 +135,11 @@ function groceryCard(object) {
     btn.className = "btn";
 
     btn.addEventListener("click", async () => {
+
+            let confirm = await confirmCard(`Ao clicar em sim você ira somar os itens da compra ao seu estoque. Você realmente realizou essa compra?`).then(res => res).catch(res => res);
+
+            if(!confirm) return
+
             let formData = new FormData();
             formData.append('data', JSON.stringify(object["produtos"]));
         

@@ -26,8 +26,7 @@ if ($_SESSION["user"]["role"] != "ADMIN") {
     <header id="header"></header>
     <div id="main">
         <div id="top">
-            <button id="add-item" class="btn">Adicionar novo item</button>
-            
+            <button id="add-item" class="btn">Adicionar novo item</button> 
         </div>
         <div id="list">
         </div>
@@ -50,6 +49,26 @@ if ($_SESSION["user"]["role"] != "ADMIN") {
 
                 <input id="file-input" type="file" name="file-upload">
                 <input id="btn-product-submit" class="btn" type="submit" value="Cadastrar">
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-product-register" class="hidden card-frame">
+        <div class="card appear" style="max-width: 500px;">
+            <div class="top-bar">
+                <h2>Editar alimento</h2><button id="edit-close-card-product" class="btn-close"></button>
+            </div>
+            <form id="edit-form-product-register" class="product-register">
+                <input id="edit-title-item" type="text" placeholder="Nome do Alimento...">
+                <select id="edit-typeQuantity">
+                    <option selected disabled value="">Selecione qual medida deseja usar.</option>
+                    <option value="UNIDADE">Unidade</option>
+                    <option value="KILOGRAMA">Kilogramas (KG)</option>
+                    <option value="LITRO">Litros</option>
+                </select>
+
+                <input id="file-input" type="file" name="file-upload">
+                <input id="btn-product-submit" class="btn" type="submit" value="Editar">
             </form>
         </div>
     </div>

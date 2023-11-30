@@ -59,3 +59,65 @@ export const toastMessage = (message, type = "success") => {
         sucessMSG(message);
     }
 };
+
+export const confirmCard = (message) => {
+    let frame = document.createElement("div");
+    frame.className = "card-frame";
+    frame.id = "certainty-card";
+
+    let container = document.createElement("div");
+    container.className = "card appear";
+    container.style.maxWidth = "400px";
+    frame.appendChild(container);
+
+    let topbar = document.createElement("div");
+    topbar.className = "top-bar"
+    container.appendChild(topbar);
+
+    let title = document.createElement("h2");
+    title.textContent = "Tem certeza ?";
+    topbar.appendChild(title);
+
+    let btnClose = document.createElement("button");
+    btnClose.className = "btn-close";
+    topbar.appendChild(btnClose);
+
+    let text = document.createElement("p");
+    text.textContent = message;
+    container.appendChild(text);
+
+    let option = document.createElement("div");
+    option.className = "option";
+    container.appendChild(option)
+
+    let yesBtn = document.createElement("button");
+    yesBtn.className = "btn green all";
+    yesBtn.textContent = "Sim";
+    option.appendChild(yesBtn);
+
+    let noBtn = document.createElement("button");
+    noBtn.className = "btn red all";
+    noBtn.textContent = "Não";
+    option.appendChild(noBtn);
+
+    const promise = new Promise((resolve, reject) => {
+        yesBtn.addEventListener("click", () => {
+            frame.remove();
+            resolve(true);
+        })
+
+        noBtn.addEventListener("click", () => {
+            frame.remove();
+            reject(false);
+        })
+
+        btnClose.addEventListener("click", () => {
+            frame.remove();
+            reject(false);
+        })
+    });
+
+    document.body.appendChild(frame);
+
+    return promise;
+}

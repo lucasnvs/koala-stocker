@@ -74,18 +74,21 @@
     display: grid;
     gap: 12px;
     justify-content: center;
+    align-items: center;
     grid-template-columns: repeat(auto-fit, minmax(160px, 200px));
+    grid-template-rows: 1fr 1fr 1fr;
 }
 
 #stock-list li {
-    width: fit-content;
-    height: fit-content;
+    width: 100%;
+    height: 100%;
 }
 
 .item_stock {
     position: relative;
     display: flex;
-    width: fit-content;
+    width: 100%;
+    height: 100%;
     gap: 12px;
     padding: 20px;
     flex-direction: column;

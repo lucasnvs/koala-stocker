@@ -79,7 +79,8 @@
     padding: 5px 10px;
 }
 
-.product-register #typeQuantity {
+.product-register #typeQuantity,
+.product-register #edit-typeQuantity {
     color: var(--light-gray);
     width: 100%;
     height: 35px;
@@ -89,10 +90,10 @@
     padding: 5px 10px;
 }
 
-.product-register #typeQuantity option {
+.product-register #typeQuantity option,
+.product-register #edit-typeQuantity option {
     color: black;
 }
-
 
 #list-name {
     width: 100%;
@@ -326,4 +327,17 @@ tbody {
 }
 .sucess svg circle {
     stroke: #FFF;
+}
+
+#certainty-card p {
+    max-width: 40ch;
+    white-space: wrap; 
+    font-size: 1.2rem;
+    color: #7d7d7d;
+}
+
+#certainty-card .option {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
 }

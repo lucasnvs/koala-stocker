@@ -1,18 +1,10 @@
 <?php
 include "../test-session.php";
 include "../../connection.php";
+include "../checkFile.php";
+include "../testAuth.php";
 
 header("Content-Type: application/json");
-
-function testAuth($role) {
-    if($_SESSION["user"]["role"] == $role) {
-        return true;
-    }
-    return false;
-}
-
-$MB1 = 1000000;
-$supportedExtension = ["jpg", "jpeg", "png"];
 
 try {
 
@@ -27,7 +19,7 @@ try {
     $post = filter_input_array(INPUT_POST);
     $file = $_FILES["file-upload"];
     $fileExtension = strtolower(pathinfo($file["name"], PATHINFO_EXTENSION));
-
+    
     if (!isset($post["name"]) || !isset($post["typeQuantity"]) || !isset($file)) {
         echo json_encode([
             "status" => "error",
@@ -46,23 +38,9 @@ try {
         }
     }
 
-    if ($_FILES["file-upload"]["error"] == UPLOAD_ERR_INI_SIZE || $_FILES["file-upload"]["size"] > 5 * $MB1) {
-        echo json_encode([
-            "status" => "error",
-            "message" => "Arquivo excedeu limite de tamanho.",
-        ]);
-        exit;
-    }
+    checkFile($file);
 
-    if (!in_array($fileExtension, $supportedExtension)) {
-        echo json_encode([
-            "status" => "error",
-            "message" => "Apenas arquivos JPG, JPEG, PNG são permitidos.",
-        ]);
-        exit;
-    }
-
-    $tmpFile = $_FILES["file-upload"]["tmp_name"];
+    $tmpFile = $file["tmp_name"];
     $targetFile = "../../../backend/upload/products_imgs/" . md5(microtime()) . "." . $fileExtension;
 
     if (move_uploaded_file($tmpFile, $targetFile)) {

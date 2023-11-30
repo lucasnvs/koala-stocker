@@ -1,0 +1,10 @@
+{
+    "mysql": {
+        "HOST": "mysql",
+        "USER": "root",
+        "MYSQL_PASSWORD": "db_koala",
+        "MYSQL_DATABASE": "koala",
+        "MYSQL_PORT": 3310,
+        "MYSQL_PORT_LOCAL": 3306
+    }
+}

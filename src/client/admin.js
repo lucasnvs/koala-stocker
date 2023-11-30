@@ -67,7 +67,9 @@ editForm.addEventListener("submit", async (e) =>{
     e.preventDefault();
 
     let nameValue = document.getElementById("edit-title-item").value;
+    let selectValue = document.getElementById("edit-typeQuantity").value;
 
+    editFormData.append("typeQuantity", selectValue);
     editFormData.append("name", nameValue);
 
     const response = await fetch("./backend/api/produtos/update-produtos.php", {
@@ -147,9 +149,7 @@ function adminProdutoItem(object) {
     editButton.addEventListener("click", () => {
         document.getElementById("edit-typeQuantity").value = object.tipo_quantidade;
         document.getElementById("edit-title-item").value = object.nome;
-        let selectValue = document.getElementById("edit-typeQuantity").value;
 
-        editFormData.append("typeQuantity", selectValue);
         editFormData.append("id_produto", object.id_produto);
         editFormData.append("image_path", object.image_path);
 

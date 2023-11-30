@@ -7,19 +7,19 @@ Projeto de Programação Web do segundo ano. A ideia era implementar um mini-sis
 
 ## Páginas
 
-### index.php
+- ### index.php
 
 Página de Login e Signup
 
 [Image]
 
-### main.php
+- ### main.php
 
 Página principal onde o usuário logado tem acesso as suas ações.
 
 [Image]
 
-### admin.php
+- ### admin.php
 
 Destinado ao administrador do sistema que tem sessão única e pode ter controle da entidade principal e compartilhada do sistema.
 
@@ -29,7 +29,7 @@ Destinado ao administrador do sistema que tem sessão única e pode ter controle
 
 Você vai precisar de **Docker** instalado na sua máquina.
 
-Ao dar **compose up** no arquivo **docker-compose-iml** o servidor php e mysql serão instalados na sua máquina.
+Ao dar **compose up** no arquivo **docker-compose-yml** o servidor php e mysql serão instalados na sua máquina.
 
 ## Database
 

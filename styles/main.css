@@ -73,7 +73,7 @@
     width: 100%;
     display: grid;
     gap: 12px;
-    -ms-grid-column-align: start;
+    justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(160px, 200px));
 }
 

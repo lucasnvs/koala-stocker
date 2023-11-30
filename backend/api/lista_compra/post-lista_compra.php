@@ -31,6 +31,14 @@ try {
         exit;
     }
 
+    if(empty($itens) || empty($listName)) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Nenhum dos valores pode ser nulo!",
+        ]);
+        exit;
+    }
+
     $listaID = criaListaRetornaId($conn, $listName, $user_session_id);
 
     foreach($itens as $item) {

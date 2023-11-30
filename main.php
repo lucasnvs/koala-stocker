@@ -78,5 +78,14 @@ if(!isset($_SESSION["user"])) {
     </div>
 
 
+    <div id="name-card" class="hidden card-frame">
+        <div class="card appear" style="max-width: 500px;">
+            <div class="top-bar">
+                <h2>Cadastrar lista de compras</h2><button id="close-name-card" class="btn-close"></button>
+            </div>
+            <input id="list-name" type="text" name="list-name" placeholder="Nome da lista...">
+            <button id="btn-name-card" class="btn all">Criar</button>
+        </div>
+    </div>
 </body>
 </html>

@@ -34,8 +34,8 @@
     background-color: #D6382E;
 }
 
-.blue {
-    background-color: rgb(59, 59, 222);
+.green {
+    background-color: var(--koala-color);
 }
 
 .appear {

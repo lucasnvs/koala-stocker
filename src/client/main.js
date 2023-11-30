@@ -1,6 +1,6 @@
 import { components } from "./components.js";
 import { ListaUnitaria } from "../ListaUnitaria.js";
-import { loadingEffect } from "../utils.js";
+import { cardOutClick, loadingEffect } from "../utils.js";
 import { toastMessage } from "./dialog.js";
 import { buildHeader } from "./header.js";
 
@@ -12,21 +12,13 @@ const groceryList = document.getElementById('grocery-list');
 const card_grocery = document.getElementById("card-grocery");
 const card_grocery_list = document.getElementById("item-table");
 const card_grocery_list_item = document.getElementById("item-list");
+const name_card = document.getElementById("name-card");
 
-let allCardFrames = document.querySelectorAll(".card-frame");
-allCardFrames.forEach(cardFrame => {
-    cardFrame.addEventListener("click", e => {
-        let target = e.target;
-        if(target == cardFrame) {
-            console.log("Clicou fora")
-            cardFrame.classList.toggle("hidden")
-        }
-    })
-})
+cardOutClick();
 
 async function render(paramDATA, element, build) {
     let values = paramDATA;
-    if(typeof paramDATA === "string") {
+    if (typeof paramDATA === "string") {
         console.log(`Requisição em ${paramDATA}`);
         values = await fetch(paramDATA).then(res => res.json())
         values = values.body;
@@ -35,12 +27,12 @@ async function render(paramDATA, element, build) {
     if (!values) return;
     console.log(values);
     element.innerHTML = "";
-    values.forEach( item => {
+    values.forEach(item => {
         build(item);
     })
 }
 
-export const renderStock = (param = BACKEND_PATH+"api/estoque/get-estoque.php") => render(param, list, (item) => {
+export const renderStock = (param = BACKEND_PATH + "api/estoque/get-estoque.php") => render(param, list, (item) => {
     var text = `
     <li>
         <div class="item_stock">
@@ -55,14 +47,14 @@ export const renderStock = (param = BACKEND_PATH+"api/estoque/get-estoque.php") 
     list.innerHTML += text;
 })
 
-export const renderItemGroceryCard = (param = BACKEND_PATH+"api/produtos/get-produtos.php") => render(param, card_grocery_list_item, (item) => {
+export const renderItemGroceryCard = (param = BACKEND_PATH + "api/produtos/get-produtos.php") => render(param, card_grocery_list_item, (item) => {
     let li = document.createElement("li");
     let comp = components.itemAddCard(item);
     li.appendChild(comp)
     card_grocery_list_item.appendChild(li);
 })
 
-export const renderGroceryList = (param = BACKEND_PATH+"api/lista_compra/get-lista_compra.php") => render(param, groceryList, (item) => {
+export const renderGroceryList = (param = BACKEND_PATH + "api/lista_compra/get-lista_compra.php") => render(param, groceryList, (item) => {
     let comp = components.groceryCard(item);
     groceryList.appendChild(comp);
 });
@@ -92,60 +84,100 @@ renderGroceryList();
 //     renderItemGroceryCard(resSearch);
 // });
 
-document.getElementById("btnAddGroceryList").addEventListener("click", () => {
-    card_grocery.classList.toggle("hidden");
-});
+function toogleCard(card) {
+    card.classList.toggle("hidden");
+}
 
-document.getElementById("close-card-grocery").addEventListener("click", () => {
-    card_grocery.classList.toggle("hidden");
-});
+document.getElementById("btnAddGroceryList").onclick = () => toogleCard(card_grocery);
+document.getElementById("close-card-grocery").onclick = function() {
+    itensGroceryList.clear();
+    renderListGroceryCard();
+    toogleCard(card_grocery);
+}
+
+document.getElementById("close-name-card").addEventListener("click", () => {
+    toogleCard(name_card)
+}) 
+
+async function dialogInputName() {
+    toogleCard(name_card);
+
+    let input = document.getElementById("list-name");
+    let myPro = new Promise((resolve, reject) => {
+        document.getElementById("btn-name-card").addEventListener("click", () => {
+            if (input.value.length < 3) {
+                toastMessage("O nome da lista deve ter no minimo 3 letras!", "error")
+            } else {
+                toogleCard(name_card)
+                resolve(input.value);
+                input.value = "";
+            }
+        })
+
+        document.getElementById("close-name-card").addEventListener("click", () => {
+            reject("")
+            input.value = "";
+        })
+    });
+
+    return myPro;
+}
 
 document.getElementById("create-grocery-list").addEventListener("click", async () => {
-    if(itensGroceryList.getSize() == 0) {
+    if (itensGroceryList.getSize() == 0) {
         toastMessage("Não é possível salvar uma lista de compras vazia!", "error");
         return;
     };
 
+    let dialog_input_name = await dialogInputName().then(res => res).catch(err => err);
+    
+    if(dialog_input_name == null || dialog_input_name == undefined || dialog_input_name == "") {
+        console.log("retorno")
+        return;
+    }
+
     let formData = new FormData();
     formData.append('data', JSON.stringify(itensGroceryList.getValues()));
-    formData.append('list_name', "Lista 2 Teste"); // teste remover
+    formData.append('list_name', dialog_input_name);
 
-    const response = await fetch(BACKEND_PATH+"api/lista_compra/post-lista_compra.php", {
+    const response = await fetch(BACKEND_PATH + "api/lista_compra/post-lista_compra.php", {
         method: "POST",
         body: formData
     }).then(res => res.json());
 
-    if(response.status == "success") {
+    if (response.status == "success") {
         itensGroceryList.clear();
     }
-    
+
     loadingEffect(document.getElementById("create-grocery-list"), () => {
         card_grocery.classList.toggle("hidden");
         renderGroceryList()
         renderListGroceryCard();
     })
+
+    toastMessage(response.message, response.status)
 })
 
 document.getElementById("save-grocery-list").addEventListener("click", async () => {
-    if(itensGroceryList.getSize() == 0) {
+    if (itensGroceryList.getSize() == 0) {
         toastMessage("Não é possível salvar uma lista de compras vazia!", "error");
         return;
     }
 
     console.log(itensGroceryList.getValues())
-    
+
     let formData = new FormData();
     formData.append('data', JSON.stringify(itensGroceryList.getValues()));
 
-    const response = await fetch(BACKEND_PATH+"api/produtos/post-insert-compra.php", {
+    const response = await fetch(BACKEND_PATH + "api/produtos/post-insert-compra.php", {
         method: "POST",
         body: formData
     }).then(res => res.json());
 
-    if(response.status == "success") {
+    if (response.status == "success") {
         itensGroceryList.clear();
     }
-    if(response.status == "error") {
+    if (response.status == "error") {
         throw new Error(response.message);
     }
     loadingEffect(document.getElementById("save-grocery-list"), () => {

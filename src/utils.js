@@ -74,3 +74,16 @@ export function getCookies(key) {
   }
   return ckObj;
 }
+
+export function cardOutClick() {
+  let allCardFrames = document.querySelectorAll(".card-frame");
+  allCardFrames.forEach(cardFrame => {
+      cardFrame.addEventListener("click", e => {
+          let target = e.target;
+          if (target == cardFrame) {
+              console.log("Clicou fora")
+              cardFrame.classList.toggle("hidden")
+          }
+      })
+  })
+}

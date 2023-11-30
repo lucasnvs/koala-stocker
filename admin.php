@@ -25,23 +25,24 @@ if ($_SESSION["user"]["role"] != "ADMIN") {
 <body>
     <header id="header"></header>
     <div id="main">
-        <div class="mid-section">
-            <div class="top-table-actions">
-                <button id="add-item" class="btn">Adicionar novo item</button>
-            </div>
-            <div id="list">
-            </div>
+        <div id="top">
+            <button id="add-item" class="btn">Adicionar novo item</button>
+            
+        </div>
+        <div id="list">
         </div>
     </div>
-    <div id="product-register" class="card-frame">
-        <div class="card appear">
+
+
+    <div id="product-register" class="hidden card-frame">
+        <div class="card appear" style="max-width: 500px;">
             <div class="top-bar">
                 <h2>Cadastrar alimento</h2><button id="close-card-product" class="btn-close"></button>
             </div>
             <form id="form-product-register" class="product-register">
                 <input id="title-item" type="text" name="name" placeholder="Nome do Alimento...">
                 <select id="typeQuantity">
-                    <option selected disabled>Selecione qual medida deseja usar.</option>
+                    <option selected disabled value="">Selecione qual medida deseja usar.</option>
                     <option value="UNIDADE">Unidade</option>
                     <option value="KILOGRAMA">Kilogramas (KG)</option>
                     <option value="LITRO">Litros</option>

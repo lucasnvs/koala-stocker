@@ -1,8 +1,10 @@
 import { buildHeader } from "./header.js";
 import { toastMessage } from "./dialog.js";
+import { cardOutClick } from "../utils.js";
 
 let card = document.getElementById("product-register");
 
+cardOutClick();
 buildHeader();
 
 fetch("./backend/api/produtos/get-produtos.php").then(async res => {
@@ -20,7 +22,12 @@ function toogleCardNewItem() {
 }
 
 document.getElementById("add-item").onclick = () => toogleCardNewItem();
-document.getElementById("close-card-product").onclick = () => toogleCardNewItem();
+document.getElementById("close-card-product").onclick = function() {
+    toogleCardNewItem();
+    document.getElementById("title-item").value = "";
+    document.getElementById("file-input").value = "";
+    document.getElementById("typeQuantity").value = "";
+}
 
 const formProductRegister = document.getElementById("form-product-register");
 formProductRegister.addEventListener("submit", async (e) => {
@@ -46,26 +53,79 @@ formProductRegister.addEventListener("submit", async (e) => {
 })
 
 function adminProdutoItem(object) {
-    document.getElementById("list").innerHTML += `
-    <div class="product-item">
-        <div class="product-label">
-            <p><b>Id:</b> ${object.id_produto}</p>
-        </div>
-        <div class="product-label">
-            <p><b>Nome:</b> ${object.nome}</p>
-        </div>
-        <div class="product-label">
-            <p><b>Tipo Quantidade:</b> ${object.tipo_quantidade}</p>
-        </div>
-        <div class="product-label-img">
-            <p><b>Imagem:</b></p>
-            <img src="${object.image_path}" alt="Imagem de ${object.nome}">
-        </div>
-        <div class="options">
-            <button class="btn blue">Editar</button>
-            <button class="btn red">Remover</button>
-        </div>
-    </div>
-    `;
+    const productItem = document.createElement('div');
+    productItem.classList.add('product-item');
+    productItem.classList.add('card');
 
+    const productLabel = document.createElement('div');
+    productLabel.classList.add('product-label');
+    
+    const productIdLabel = document.createElement('p');
+    productIdLabel.innerHTML = `<b>Id:</b> ${object.id_produto}`;
+    productLabel.appendChild(productIdLabel);
+    productItem.appendChild(productLabel);
+
+    const productNameLabel = document.createElement('div');
+    productNameLabel.classList.add('product-label');
+
+    const productNameLabelText = document.createElement('p');
+    productNameLabelText.innerHTML = `<b>Nome:</b> ${object.nome}`;
+    productNameLabel.appendChild(productNameLabelText);
+    productItem.appendChild(productNameLabel);
+
+    const productQuantityTypeLabel = document.createElement('div');
+    productQuantityTypeLabel.classList.add('product-label');
+
+    const productQuantityTypeLabelText = document.createElement('p');
+    productQuantityTypeLabelText.innerHTML = `<b>Tipo Quantidade:</b> ${object.tipo_quantidade}`;
+    productQuantityTypeLabel.appendChild(productQuantityTypeLabelText);
+    productItem.appendChild(productQuantityTypeLabel);
+
+    const productLabelImg = document.createElement('div');
+    productLabelImg.classList.add('product-label-img');
+    const productImageLabel = document.createElement('p');
+    productImageLabel.innerHTML = `<b>Imagem:</b>`;
+    productLabelImg.appendChild(productImageLabel);
+
+    const productImage = document.createElement('img');
+    productImage.src = object.image_path;
+    productImage.alt = `Imagem de ${object.nome}`;
+    productLabelImg.appendChild(productImage);
+    productItem.appendChild(productLabelImg);
+
+    const options = document.createElement('div');
+    options.classList.add('options');
+
+    const editButton = document.createElement('button');
+    editButton.id = 'btn-edit';
+    editButton.classList.add('btn');
+    editButton.classList.add('green');
+    editButton.textContent = 'Editar';
+    options.appendChild(editButton);
+
+    const removeButton = document.createElement('button');
+    removeButton.id = 'btn-remove';
+    removeButton.classList.add('btn');
+    removeButton.classList.add('red');
+    removeButton.textContent = 'Remover';
+    options.appendChild(removeButton);
+
+    productItem.appendChild(options);
+
+
+    editButton.addEventListener("click", () => {
+        // reutilizar card de criar
+        // setar valores do input
+        // 
+    })
+
+    removeButton.addEventListener("click", () => {
+        // card de certeza
+        // se sim
+        // faz req para excluir
+        // se nao 
+        // faz nada e fecha o card
+    })
+
+    document.getElementById("list").appendChild(productItem);
 }

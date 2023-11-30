@@ -6,7 +6,7 @@ header("Content-Type: application/json");
 
 $user_session_id = $_SESSION["user"]["id"];
 
-$response = [];
+$response["body"] = [];
 
 try {
     $rs = $conn->prepare("CALL pegar_estoque_usuario(?)");

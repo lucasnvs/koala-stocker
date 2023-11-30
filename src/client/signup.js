@@ -115,34 +115,43 @@ export function criaSignupCard() {
 
     h5Regist.appendChild(aSignupRef);
     divSignup.appendChild(h5Regist);
-    
+
     btnSignup.addEventListener("click", () => {
         var register = {
-            fullname: inputName.value+" "+inputUndername.value,
+            fullname: inputName.value + " " + inputUndername.value,
             email: inputEmail.value,
             password: inputPass.value
         }
-    
+
         const form = new FormData;
-        for(let key of Object.keys(register)) {
+        for (let key of Object.keys(register)) {
             form.append(key, register[key]);
         }
 
-        if(checkEmailFormat(register.email) && checkPasswordFormat(register.password)) {
-            fetch("../../../backend/api/users/post-users.php", {
-                method: "POST",
-                body: form
-            }).then(res => res.json()).then(res => {
-                toastMessage(res.message, res.status);
-                if(res.status == "error") return;
-
-                loadingEffect(btnSignup, () => {
-                    divSignup.remove();
-                    white_side.appendChild(loginCard);
-                });
-            })
+        if (!checkEmailFormat(register.email)) {
+            toastMessage("Email inválido!", "error");
+            return
         }
-    });
+        if (!checkPasswordFormat(register.password)) {
+            toastMessage("Senha inválida é no minimo 5 caracteres que incluem um numero e uma letra!", "error");
+            return
+        }
+
+        fetch("../../../backend/api/users/post-users.php", {
+            method: "POST",
+            body: form
+        }).then(res => res.json()).then(res => {
+            toastMessage(res.message, res.status);
+            if (res.status == "error") return;
+
+            loadingEffect(btnSignup, () => {
+                divSignup.remove();
+                white_side.appendChild(loginCard);
+                window.location.href = "main.php";
+            });
+        })
+    }
+    );
 
     return divSignup;
 }

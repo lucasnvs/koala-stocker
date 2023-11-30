@@ -3,6 +3,14 @@ include "../../connection.php";
 
 header("Content-Type: application/json");
 
+function getIdByEmail($conn, $email) {
+    $sql = "SELECT id_user FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$email]);
+    
+    return $stmt->fetch(PDO::FETCH_ASSOC)["id_user"];
+}
+
 function checkEmail($conn, $email) {
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
@@ -65,6 +73,14 @@ try {
     $sql = "CALL insert_user(?,?,?)";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$fullname, $email, $encrypted]);
+
+    $idCriado = getIdByEmail($conn, $email);
+
+    session_start();
+    $_SESSION["user"]["email"] = $email;
+    $_SESSION["user"]["name"] = $fullname;
+    $_SESSION["user"]["role"] = "DEFAULT";
+    $_SESSION["user"]["id"] = $idCriado;
 
     echo json_encode([
         "status" => "success",

@@ -36,7 +36,6 @@
                     <label for="remember">Lembrar de mim</label>
                 </div>
                 <input type="submit" id="btn_acess" class="btn all" value="Acessar">
-                <h5><a href="#">Esqueceu a senha?</a></h5>
                 <span>ou</span>
                 <h5 class="regist">Sem conta? <a id="login-ref">Registre-se</a></h5>
             </form>
